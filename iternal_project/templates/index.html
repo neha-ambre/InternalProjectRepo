@@ -1,0 +1,23 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{%block body %}
+<link rel="stylesheet" href="../static/css/index.css">
+<style>
+    html, body, #body { height:100% }
+
+  #body { position:relative }
+
+  img {
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:block;
+    z-index:1;
+    
+  }
+
+</style>
+<img src="../static/images/backimg1.png">
+{%endblock body %}
