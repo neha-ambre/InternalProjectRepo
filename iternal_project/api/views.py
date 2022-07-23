@@ -231,8 +231,8 @@ def saveForm(request):
                              learning_impression=learning_impression,behavior_impression=behavior_impression,neurology_evaluation=neurology_evaluation,
                              developement_evaluation=developement_evaluation,learning_evaluation_plan=learning_evaluation_plan,special_education_intervention=special_education_intervention,remedial_intervention=remedial_intervention,
                              behavioral_modification=behavioral_modification,academic_suggestions=academic_suggestions,followUpPlan=followUpPlan,medical_treatment_plan=medical_treatment_plan)
-        # autData=AutisticData()
-        # autData.save()
+        autData=AutisticData()
+        autData.save()
         
         
         # # Now, let's add data to our worksheet
@@ -261,10 +261,48 @@ def saveForm(request):
         neurological_concerns="\n".join(neurological_concerns)
         developemental_concerns="\n".join(developemental_concerns)
         learning_concerns="\n".join(learning_concerns)
-        
         behavioral_concerns="\n".join(behavioral_concerns)
+        
+        personal_developement="\n".join(personal_developement)
+        learning_behavior="\n".join(learning_behavior)
+        behavior="\n".join(behavior)
+        present_school_concerns="\n".join(present_school_concerns)
+        general_neurology="\n".join(general_neurology)
+        neurology="\n".join(neurology)
+        muscle_neurology="\n".join(muscle_neurology)
+        visual_deficit="\n".join(visual_deficit)
+        hearing_deficit="\n".join(hearing_deficit)
+        
+        speech_screening="\n".join(speech_screening)
+        fine_motor="\n".join(fine_motor)
+        social_emotion="\n".join(social_emotion)
+        learning_evaluation="\n".join(learning_evaluation)
+        behavior_evaluation="\n".join(behavior_evaluation)
+        
+        neurology_impression="\n".join(neurology_impression)
+        developement_impression="\n".join(developement_impression)
+        learning_impression="\n".join(learning_impression)
+        behavior_impression="\n".join(behavior_impression)
+        
+        neurology_evaluation="\n".join(neurology_evaluation)
+        developement_evaluation="\n".join(developement_evaluation)
+        learning_evaluation_plan="\n".join(learning_evaluation_plan)
+        special_education_intervention="\n".join(special_education_intervention)
+        remedial_intervention="\n".join(remedial_intervention)
+        behavioral_modification="\n".join(behavioral_modification)
+        academic_suggestions="\n".join(academic_suggestions)
+        medical_treatment_plan="\n".join(medical_treatment_plan)
+        
         colValues=[name,address,gender,refferedby,birthDate,birthWeight,term,delivery,consanguinity,perninantalEvents,treatment,requiredNICUstay,neurological_concerns,developemental_concerns,learning_concerns,behavioral_concerns,
-                   motor_development,social_smile,neck_holding,roll_over,sitting_up,standing,walking,speech_developement,single_words,full_sentences,response_to_calling_names,response_to_instructions,reapeats_spoken_words,communication_loops]
+                   motor_development,social_smile,neck_holding,roll_over,sitting_up,standing,walking,speech_developement,single_words,full_sentences,response_to_calling_names,response_to_instructions,reapeats_spoken_words,communication_loops,
+                   past_history_significance,clinical_history_significance,ho_surgery,ho_hospitalization,ho_previous_treatment,
+                   personal_developement,learning_behavior,behavior,parenting_style,
+                   present_school_name,school_board,school_medium,school_comments,concerns_first_noticed_in,attendance,liked_subjects,unliked_subjects,present_school_concerns,
+                   weight,height,head_circumference,skull_shape,general_neurology,general_neurology_details,skin_exam,joints,neurology,neurology_details,hypertrophy_of_muscles,abnormal_tone_pattern,muscle_tone_neurology,muscle_neurology,muscle_neurology_details,muscle_power_details,deep_tendon_reflexes,deep_tendon_reflexes_details,coordination,coordination_details,abnormal_movements,abnormal_movements_details,motor_deficit,gait,balance,
+                   visual_deficit,hearing_deficit,eye_contact,motor_imitation_skills,pointing_behaviors,stereotypic_behaviors,sensory_defensive_behaviors,speech,evaluationMChat,development_screening,gross_motor,speech_screening,fine_motor,social_emotion,learning_evaluation,behavior_evaluation,
+                   neurology_impression,cerebral_palsy,cognitive_disability,mental_retardation,developement_impression,learning_impression,behavior_impression,
+                   neurology_evaluation,developement_evaluation,learning_evaluation_plan,special_education_intervention,remedial_intervention,behavioral_modification,academic_suggestions,followUpPlan,
+                   medical_treatment_plan]
         char='A'
         char2=chr(ord('A')-1)
         flag=0
@@ -299,14 +337,7 @@ def saveForm(request):
 # # Creating a basic bar chart
 # worksht.add_chart(("A2", "A6"), [("B2", "B6")], "Shop")
 
-  
 
-
-
-
-        
-        
-        
     return HttpResponse('ok')
 
 # ,motor_development,social_smile,neck_holding,roll_over,sitting_up,standing,walking,speech_developement,single_words,full_sentences,response_to_calling_names,response_to_instructions,reapeats_spoken_words,communication_loops,past_history_significance,clinical_history_significance,ho_surgery,ho_hospitalization,ho_previous_treatment,personal_developement,learning_behavior,behavior,parenting_style,present_school_name,school_board,school_medium,school_comments,concerns_first_noticed_in,attendance,liked_subjects,unliked_subjects,present_school_concerns,weight,height,head_circumference,skull_shape,general_neurology,general_neurology_details,skin_exam,joints,neurology,neurology_details,hypertrophy_of_muscles,abnormal_tone_pattern,muscle_tone_neurology,muscle_neurology,muscle_neurology_details,muscle_power_details,deep_tendon_reflexes,deep_tendon_reflexes_details,coordination,coordination_details,abnormal_movements,abnormal_movements_details,motor_deficit,gait,balance,visual_deficit,hearing_deficit,eye_contact,motor_imitation_skills,pointing_behaviors,stereotypic_behaviors,sensory_defensive_behaviors,speech,evaluationMChat,development_screening,gross_motor,speech_screening,fine_motor,social_emotion,learning_evaluation,behavior_evaluation,neurology_impression,cerebral_palsy,cognitive_disability,mental_retardation,developement_impression,learning_impression,behavior_impression,neurology_evaluation,developement_evaluation,learning_evaluation_plan,special_education_intervention,remedial_intervention,behavioral_modification,academic_suggestions,followUpPlan,medical_treatment_plan

@@ -44,7 +44,13 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'widget_tweaks',
+    'gsheets'
 ]
+
+
+# GSHEETS = {
+#     'CLIENT_SECRETS': '<PATH TO DOWNLOADED CREDENTIALS>'
+# }
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 

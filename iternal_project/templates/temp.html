@@ -44,7 +44,7 @@
                               <tr class="my-4">
                                 <td>Address</td>
                                 <td>
-                                    <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="2"></textarea>
+                                    <textarea class="form-control w-50" name="address"   rows="2"></textarea>
                                 </td>
                               </tr>
             
@@ -54,28 +54,30 @@
                                     <div class="form-check">
                                         <input class="form-check-input mx-2" type="radio" value="male" name="gender" >
                                         <label class="form-check-label" for="flexRadioDefault1">
-                                          Male
+                                          Boy
                                         </label>
                                       </div>
                                       <div class="form-check">
                                         <input class="form-check-input mx-2" type="radio" value="female" name="gender" checked>
                                         <label class="form-check-label" >
-                                          Female
+                                          Girl
                                         </label>
                                       </div>
-                                      <div class="form-check">
-                                        <input class="form-check-input mx-2" type="radio" value="Other" name="gender" checked>
-                                        <label class="form-check-label" >
-                                          Other
-                                        </label>
-                                      </div>
+                                      
                                 </td>
                               </tr>
             
                               <tr class="my-4">
-                                <td>Reffered By</td>
+                                <td>Referred By</td>
                                 <td>
                                     <input class="form-control w-50" type="text" name="refferedby" >
+                                </td>
+                              </tr>
+
+                              <tr class="my-4">
+                                <td>Phone number</td>
+                                <td>
+                                    <input class="form-control w-25" type="tel" name="referredBy_phone" placeholder="eg.9876543210" pattern="[0-9]{10}" required>
                                 </td>
                               </tr>
             
@@ -99,6 +101,25 @@
                     <div class="container d-flex" style="margin-bottom:50px;margin-top:50px ">
                         <div class="container1 mx-5">
                             <table class="table table-borderless">
+
+                                <tr class="my-4">
+                                    <td>Consanguinity</td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input mx-2" type="radio" value="present" name="consanguinity" >
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                              Present
+                                            </label>
+                                          </div>
+                                          <div class="form-check">
+                                            <input class="form-check-input mx-2" type="radio" value="absent" name="consanguinity" checked>
+                                            <label class="form-check-label" >
+                                              Absent
+                                            </label>
+                                          </div>
+                                    </td>
+                                  </tr>
+
                                 <tr class="my-4">
                                     <td>Birth Date</td>
                                     <td>
@@ -109,7 +130,7 @@
                                   <tr class="my-4">
                                     <td>Birth Weight</td>
                                     <td>
-                                        <input class="form-control w-50" type="number" name="birthWeight" placeholder="in kgs" >
+                                        <input class="form-control w-50" type="text" name="birthWeight" placeholder="" >
                                     </td>
                                   </tr>
                                   
@@ -117,16 +138,19 @@
                                     <td>Term</td>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input mx-2" type="radio" value="fullterm" name="term" id="flexRadioDefault1" checked>
+                                            <input class="form-check-input mx-2" type="radio" value="fullterm" name="term"   checked>
                                             <label class="form-check-label" for="flexRadioDefault1">
                                               Fullterm
                                             </label>
                                           </div>
                                           <div class="form-check">
-                                            <input class="form-check-input mx-2" type="radio" value="preterm" name="term" id="flexRadioDefault2">
+                                            <input class="form-check-input mx-2" onchange="preterm_checked()" id="preterm" type="radio" value="preterm" name="term" >
                                             <label class="form-check-label" >
                                               Preterm
                                             </label>
+                                          </div>
+                                          <div class="form-check">
+                                            <input class="form-control mx-2" style="display:none;" placeholder="Enter preterm weeks" id="preterm_weeks" type="text" name="preterm_weeks" >
                                           </div>
                                           
                                     </td>
@@ -136,19 +160,19 @@
                                     <td>Delivery</td>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input mx-2" type="radio" value="normal" name="delivery" id="flexRadioDefault1" checked>
+                                            <input class="form-check-input mx-2" type="radio" value="normal" name="delivery"   checked>
                                             <label class="form-check-label" for="flexRadioDefault1">
                                               Normal
                                             </label>
                                           </div>
                                           <div class="form-check">
-                                            <input class="form-check-input mx-2" type="radio" value="lscs" name="delivery" id="flexRadioDefault2">
+                                            <input class="form-check-input mx-2" type="radio" value="lscs" name="delivery" >
                                             <label class="form-check-label" >
                                               LSCS
                                             </label>
                                           </div>
                                           <div class="form-check">
-                                            <input class="form-check-input mx-2" type="radio" value="foreceps" name="delivery" id="flexRadioDefault2">
+                                            <input class="form-check-input mx-2" type="radio" value="foreceps" name="delivery" >
                                             <label class="form-check-label" >
                                               Foreceps
                                             </label>
@@ -159,31 +183,14 @@
                                   <tr class="my-4">
                                     <td>Delivery Details</td>
                                     <td>
-                                        <textarea class="form-control" name="deliveryDetails" id="exampleFormControlTextarea1" rows="2"></textarea>
+                                        <textarea class="form-control" name="deliveryDetails"   rows="2"></textarea>
                                     </td>
                                   </tr>
                             </table>
                         </div>
                         <div class="container2 mx-5">
                          <table class="table table-borderless">
-                            <tr class="my-4">
-                                <td>Consanguinity</td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input mx-2" type="radio" value="present" name="consanguinity" >
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                          Present
-                                        </label>
-                                      </div>
-                                      <div class="form-check">
-                                        <input class="form-check-input mx-2" type="radio" value="absent" name="consanguinity" checked>
-                                        <label class="form-check-label" >
-                                          Absent
-                                        </label>
-                                      </div>
-                                </td>
-                              </tr>
-
+                           
                               <tr class="my-4">
                                 <td>Perninantal Events</td>
                                 <td>
@@ -205,21 +212,14 @@
                               <tr class="my-4">
                                 <td>Perninantal Events Details</td>
                                 <td>
-                                    <textarea class="form-control" name="perninantalEventsDetails" id="exampleFormControlTextarea1" rows="2"></textarea>
+                                    <textarea class="form-control" name="perninantalEventsDetails"   rows="2"></textarea>
                                 </td>
                               </tr>
 
                               <tr class="my-4">
                                 <td>Treatment</td>
                                 <td>
-                                    <select class="form-select" aria-label="Default select example" name="treatment">
-                                        <option selected>Treatment</option>
-                                        <option value="intubation">Intubation at birth</option>
-                                        <option value="required oxygen support">Required oxygen support</option>
-                                        <option value="ventilator">Ventilator</option>
-                                        <option value="required surfactant">Required Surfactant</option>
-                                        <option value="ionotropic Support">Ionotropic Support</option>
-                                      </select>
+                                    <input class="form-control" name="treatment" type="text">
                                 </td>
                               </tr>
 
@@ -244,7 +244,7 @@
                               <tr class="my-4">
                                 <td>NICU stay Details</td>
                                 <td>
-                                    <textarea class="form-control" name="requiredNICUstayDets" id="exampleFormControlTextarea1" rows="2"></textarea>
+                                    <textarea class="form-control" name="requiredNICUstayDets"   rows="2"></textarea>
                                 </td>
                               </tr>
                         </table>
@@ -318,13 +318,61 @@
                                 <td>
                                     <div class="container mx-2">
                                         <div class="form-check my-1 d-flex">
-                                            <input class="form-check-input d-flex mx-2" type="checkbox" value="Delayed motor development" name="developement_concerns">Delayed motor development 
+                                            <input class="form-check-input d-flex mx-2" id="delayed_motor_developement" type="checkbox" value="Delayed motor development" name="developement_concerns">Delayed motor development
+                                            <div class="container" style="display:none" id="delayed_motor_dev">
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Not holding neck" name="delayed_motor_developement">Not holding neck
+                                                </div>
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Not able to sit" name="delayed_motor_developement">Not able to sit
+                                                </div>
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Not able to stand and walk" name="delayed_motor_developement">Not able to stand and walk
+                                                </div>
+                                            </div> 
                                         </div>
                                         <div class="form-check my-1 d-flex">
-                                            <input class="form-check-input d-flex mx-2" type="checkbox" value="Delay in sensory development" name="developement_concerns">Delay in sensory development
+                                            <input class="form-check-input d-flex mx-2" id="delayed_sensory_developement" type="checkbox" value="Delay in sensory development" name="developement_concerns">Delay in sensory development
+                                            <div class="container" style="display:none" id="delayed_sensory_dev">
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Inconsistant social smile" name="delayed_sensory_dev">Inconsistant social smile
+                                                </div>
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Poor Vision" name="delayed_sensory_dev">Poor Vision
+                                                </div>
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Hearing Deficits" name="delayed_sensory_dev">Hearing Deficits
+                                                </div>
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Repetitive Behaviors" name="delayed_sensory_dev">Repetitive Behaviors
+                                                </div>
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Poor Attention" name="delayed_sensory_dev">Poor Attention
+                                                </div>
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Hyperactivity" name="delayed_sensory_dev">Hyperactivity
+                                                </div>
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Aimless wandering" name="delayed_sensory_dev">Aimless wandering
+                                                </div>
+                                            </div> 
                                         </div>
                                         <div class="form-check my-1 d-flex">
-                                            <input class="form-check-input d-flex mx-2" type="checkbox" value="Delayed speech" name="developement_concerns">Delayed speech
+                                            <input class="form-check-input d-flex mx-2" type="checkbox" value="Delayed speech" id="delayed_speech_developement" name="developement_concerns">Delayed speech
+                                            <div class="container" style="display:none" id="delayed_speech_dev">
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Does not understands instructions" name="delayed_speech_developement">Does not understands instructions
+                                                </div>
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Speaks less" name="delayed_speech_developement">Speaks less
+                                                </div>
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Unclear speech" name="delayed_speech_developement">Unclear speech
+                                                </div>
+                                                <div class="form-check my-1 d-flex">
+                                                    <input class="form-check-input d-flex mx-2" type="checkbox" value="Reapeats spoken words" name="delayed_speech_developement">Reapeats spoken words
+                                                </div>
+                                            </div> 
                                         </div>
                                         <div class="form-check my-1 d-flex">
                                             <input class="form-check-input d-flex mx-2" type="checkbox" value="Delayed social development" name="developement_concerns">Delayed social development
@@ -335,6 +383,8 @@
                                     </div>
                                 </td>
                             </tr><tr style="height:10px"></tr>
+
+
                             <tr class="my-4">
                                 <td>
                                     <h5>Learning</h5>
@@ -405,15 +455,7 @@
                                             <div class="form-check d-flex">
                                                 <input class="form-check-input d-flex mx-2" type="checkbox" value="Leaves classwork incomplete" name="learning_concerns">Leaves classwork incomplete
                                             </div>
-                                            <div class="form-check d-flex">
-                                                <input class="form-check-input d-flex mx-2" type="checkbox" value="Hyperactivity" name="learning_concerns">Hyperactivity
-                                            </div>
-                                            <div class="form-check d-flex">
-                                                <input class="form-check-input d-flex mx-2" type="checkbox" value="Attention deficit" name="learning_concerns">Attention deficit
-                                            </div>
-                                            <div class="form-check d-flex">
-                                                <input class="form-check-input d-flex mx-2" type="checkbox" value="Lack of concentration" name="learning_concerns">Lack of concentration
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </td>
@@ -442,6 +484,15 @@
                                         </div>
                                         <div class="form-check d-flex">
                                             <input class="form-check-input d-flex mx-2" type="checkbox" value="Can not make friends" name="behavior_concerns">Can not make friends
+                                        </div>
+                                        <div class="form-check d-flex">
+                                            <input class="form-check-input d-flex mx-2" type="checkbox" value="Hyperactivity" name="behavior_concerns">Hyperactivity
+                                        </div>
+                                        <div class="form-check d-flex">
+                                            <input class="form-check-input d-flex mx-2" type="checkbox" value="Attention deficit" name="behavior_concerns">Attention deficit
+                                        </div>
+                                        <div class="form-check d-flex">
+                                            <input class="form-check-input d-flex mx-2" type="checkbox" value="Lack of concentration" name="behavior_concerns">Lack of concentration
                                         </div>
                                     </div>
                                 </td>
@@ -484,14 +535,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class="my-4">
-                                <td>
-                                    <label for="socialsimle">Social Smile</label>
-                                </td>
-                                <td>
-                                    <input type="number" name="social-smile" class="form-control" placeholder="months">
-                                </td>
-                            </tr>
+                            
                             <tr class="my-4">
                                 <td>
                                     <label for="neckholding">Neck Holding</label>
@@ -518,7 +562,7 @@
                             </tr>
                             <tr class="my-4">
                                 <td>
-                                    <label for="stand">Standing with/without support</label>
+                                    <label for="stand">Standing without support</label>
                                 </td>
                                 <td>
                                     <input type="number" name="standing" class="form-control" placeholder="months">
@@ -532,6 +576,20 @@
                                     <input type="number" name="walking" class="form-control" placeholder="months">
                                 </td>
                             </tr>
+                            <tr class="my-4">
+                                <td>
+                                    <label for="stand">Climbing Staircase</label>
+                                </td>
+                                <td>
+                                    <input type="number" name="climbing_staircase" class="form-control" placeholder="months">
+                                </td>
+                            </tr>
+                            <tr class="my-4">
+                                <td>Motor Developement Details</td>
+                                <td>
+                                    <textarea class="form-control" name="motorDevDetails"   rows="2"></textarea>
+                                </td>
+                              </tr>
                         </table>
                        </div>
                        <div class="container2 mx-5">
@@ -555,6 +613,16 @@
                                     </div>
                                 </td>
                             </tr>
+
+                            <tr class="my-4">
+                                <td>
+                                    <label for="socialsmile">Social Smile</label>
+                                </td>
+                                <td>
+                                    <input type="number" name="social-smile" class="form-control" placeholder="months">
+                                </td>
+                            </tr>
+
                             <tr class="my-4">
                                 <td>
                                     <label for="words">Single words at</label>
@@ -646,6 +714,12 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr class="my-4">
+                                <td>Speech Developement Details</td>
+                                <td>
+                                    <textarea class="form-control" name="speechDevDetails"   rows="2"></textarea>
+                                </td>
+                              </tr>
                         </table>
                        </div>
                     </div>       
@@ -667,7 +741,7 @@
                         
                         <div class="container" style="margin-bottom:50px">
                             <table class="table table-borderless">
-                                <tr class="my-4">
+                                <!-- <tr class="my-4">
                                     <td>
                                         <label for="past-history">Past History Significance</label>
                                     </td>
@@ -682,7 +756,7 @@
 
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <tr class="my-4">
                                     <td>
                                         <label >Clinical History Significance</label>
@@ -740,6 +814,12 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr class="my-4">
+                                    <!-- <td>Speech Developement Details</td> -->
+                                    <td>
+                                        <textarea class="form-control" name="Past History Details" placeholder="Past history details (if any)" rows="2"></textarea>
+                                    </td>
+                                  </tr>
                             </table>
                         </div>      
                   </div>
@@ -1046,13 +1126,22 @@
                                                                 <input class="form-check-input d-flex mx-2" type="checkbox" value="many friends" name="behavior">Many friends
                                                             </div>
                                                             <div class="form-check my-1 d-flex">
-                                                                <input class="form-check-input d-flex mx-2" type="checkbox" value="excessive tv viewing" name="behavior">Excessive TV viewing
+                                                                <input class="form-check-input d-flex mx-2" type="checkbox" id="excessive_tv_viewing" value="excessive tv viewing" name="excessive_tv_viewing">Excessive TV viewing
+                                                                <div class="container" id="tv_view_hrs" style="display:none">
+                                                                    <input class="form-control" type="text">
+                                                                </div>
                                                             </div>
                                                             <div class="form-check my-1 d-flex">
-                                                                <input class="form-check-input d-flex mx-2" type="checkbox" value="healthy dietary habits" name="behavior">Healthy dietary habits
+                                                                <input class="form-check-input d-flex mx-2" type="checkbox" id="unhealthy_dietary_habits" value="healthy dietary habits" name="unhealthy_dietary_habits">Unhealthy dietary habits
+                                                                <div class="container" id="unhealthy_dietary_habits_det" style="display:none">
+                                                                    <input class="form-control" type="text">
+                                                                </div>
                                                             </div>
                                                             <div class="form-check my-1 d-flex">
-                                                                <input class="form-check-input d-flex mx-2" type="checkbox" value="healthy sleep habits" name="behavior">Healthy sleep habits
+                                                                <input class="form-check-input d-flex mx-2" type="checkbox" id="unhealthy_sleep_habits" value="healthy sleep habits" name="unhealthy_sleep_habits">Unhealthy sleep habits
+                                                                <div class="container" id="unhealthy_sleep_habits_det" style="display:none">
+                                                                    <input class="form-control" type="text">
+                                                                </div>
                                                             </div>
                                                             <div class="form-check my-1 d-flex">
                                                                 <input class="form-check-input d-flex mx-2" type="checkbox" value="misses school often" name="learning_behavior">Misses school often
@@ -1496,6 +1585,15 @@
                                                 </div>
                                             </td>
                                         </tr><tr style="height:10px"></tr>
+                                    </table>
+                                </div>
+                                <div class="container">
+                                    <table>
+                                        <tr class="my-4">
+                                            <td class="w-50">
+                                                <textarea class="form-control" name="Behavioral and personal Details" placeholder="Behavioral and personal Details (if any)" rows="2"></textarea>
+                                            </td>
+                                          </tr>
                                     </table>
                                 </div>
                   </div>
@@ -3641,5 +3739,43 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+   function preterm_checked(){
+    if(document.getElementById('preterm').checked) {   
+        document.getElementById("preterm_weeks").style.display = "block";
+ }  
+   }
+
+   //delayed motor developement
+   document.getElementById("delayed_motor_developement").onchange = function() {
+    (document.getElementById("delayed_motor_developement").checked?(document.getElementById('delayed_motor_dev').style.display = 'block'):(document.getElementById('delayed_motor_dev').style.display = 'none'))
+   };
+
+   //delayed sensory developement
+   document.getElementById("delayed_sensory_developement").onchange = function() {
+    (document.getElementById("delayed_sensory_developement").checked?(document.getElementById('delayed_sensory_dev').style.display = 'block'):(document.getElementById('delayed_sensory_dev').style.display = 'none'))
+   };
+
+   //delayed speech developement
+   document.getElementById("delayed_speech_developement").onchange = function() {
+    (document.getElementById("delayed_speech_developement").checked?(document.getElementById('delayed_speech_dev').style.display = 'block'):(document.getElementById('delayed_speech_dev').style.display = 'none'))
+   };
+
+   //excessive tv viewing
+   document.getElementById("excessive_tv_viewing").onchange = function() {
+    (document.getElementById("excessive_tv_viewing").checked?(document.getElementById('tv_view_hrs').style.display = 'block'):(document.getElementById('tv_view_hrs').style.display = 'none'))
+   };
+
+   //unhealthy_dietary_habits
+   document.getElementById("unhealthy_dietary_habits").onchange = function() {
+    (document.getElementById("unhealthy_dietary_habits").checked?(document.getElementById('unhealthy_dietary_habits_det').style.display = 'block'):(document.getElementById('unhealthy_dietary_habits_det').style.display = 'none'))
+   };
+
+   //unhealthy_sleep_habits
+   document.getElementById("unhealthy_sleep_habits").onchange = function() {
+    (document.getElementById("unhealthy_sleep_habits").checked?(document.getElementById('unhealthy_sleep_habits_det').style.display = 'block'):(document.getElementById('unhealthy_sleep_habits_det').style.display = 'none'))
+   };
+</script>
 
 {%endblock body %}
