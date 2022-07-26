@@ -1,4 +1,3 @@
-import re
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import DataForm
@@ -45,24 +44,34 @@ def temp(request):
     form=DataForm()
     return render(request,'temp.html',{'form':form})
 
+
+# Task.update_state( 
+#     state=0, 
+#     meta={'current': "current", 'total': "total"} 
+# )
+
+
 def saveForm(request):
     if request.method == 'POST':
         name=request.POST.get('personName')
         address=request.POST.get('address')
         gender=request.POST.get('gender')
         refferedby=request.POST.get('refferedby')
+        referredBy_phone=request.POST.get('referredBy_phone')
         
         birthDate=request.POST.get('birthDate')
         birthWeight=request.POST.get('birthWeight')
         if(birthWeight==''):
             birthWeight=0
         term=request.POST.get('term')
+        preterm_weeks=request.POST.get('preterm_weeks')
         delivery=request.POST.get('delivery')
         if(delivery!='normal'):
             deliveryDetails=request.POST.get('deliveryDetails')
         else:
             deliveryDetails=delivery
         consanguinity=request.POST.get('consanguinity')
+        
         perninantalEvents=request.POST.get('perninantalEvents')
         if(perninantalEvents=='present'):
             perninantalEventsDetails=request.POST.get('perninantalEventsDetails')
@@ -77,6 +86,9 @@ def saveForm(request):
             
         neurological_concerns=request.POST.getlist('neurology_concerns')
         developemental_concerns=request.POST.getlist('developement_concerns')
+        delayed_motor_developement=request.POST.getlist('delayed_motor_developement')
+        delayed_sensory_dev=request.POST.getlist('delayed_sensory_dev')
+        delayed_speech_developement=request.POST.getlist('delayed_speech_developement')
         learning_concerns=request.POST.getlist('learning_concerns')
         behavioral_concerns=request.POST.getlist('behavior_concerns')
         
@@ -99,6 +111,9 @@ def saveForm(request):
         walking=request.POST.get('walking')
         if(walking==''):
             walking=0
+        climbing_staircase=request.POST.get('climbing_staircase')
+        if(climbing_staircase==''):
+            climbing_staircase=0
         speech_developement=request.POST.get('speech-developement')
         if(speech_developement==''):
             speech_developement=0
@@ -112,8 +127,11 @@ def saveForm(request):
         response_to_instructions=request.POST.get('res-inst-call')
         reapeats_spoken_words=request.POST.get('rep-words')
         communication_loops=request.POST.get('comm-loop')
+        motorDevDetails=request.POST.get('motorDevDetails')
+        speechDevDetails=request.POST.get('speechDevDetails')
+        PastHistoryDetails=request.POST.get('PastHistoryDetails')
+        BehavioralAndPersonalDetails=request.POST.get('BehavioralAndPersonalDetails')
         
-        past_history_significance=request.POST.get('past-his')
         clinical_history_significance=request.POST.get('clinical-history-significance')
         ho_surgery=request.POST.get('ho-surg')
         ho_hospitalization=request.POST.get('ho-hosp')
@@ -123,6 +141,11 @@ def saveForm(request):
         learning_behavior=request.POST.getlist('learning_behavior')
         behavior=request.POST.getlist('behavior')
         parenting_style=request.POST.get('parenting-style')
+        tv_view_hrs=request.POST.get('tv_view_hrs')
+        if(tv_view_hrs==''):
+            tv_view_hrs=0
+        UnhealthyDietryHabits=request.POST.get('UnhealthyDietryHabits')
+        UnhealthySleepHabits=request.POST.get('UnhealthySleepHabits')
         
         #academic history
         present_school_name=request.POST.get('schoolName')
@@ -216,12 +239,13 @@ def saveForm(request):
         # sheet.append(data)
         # wb.save("https://docs.google.com/spreadsheets/d/1w4wO_ZomtF8nt3E9czaIJZEZXDh4IUTblhnvwag1998/edit?usp=sharing")
         
-        autData=AutisticData(firstName=name,address=address,gender=gender,refferedBy=refferedby,birthDate=birthDate,birthWeight=birthWeight,term=term,delivery=deliveryDetails,consanguinity=consanguinity,perninantalEvents=perninantalEventsDetails,treatment=treatment,requiredNICUstay=requiredNICUstayDets,
-                             neurological_concern=neurological_concerns,developemental_concerns=developemental_concerns,learning_concerns=learning_concerns,behavioral_concerns=behavioral_concerns,
-                             motor_development=motor_development,social_smile=social_smile,neck_holding=neck_holding,roll_over=roll_over,sitting_up=sitting_up,standing=standing,walking=walking,speech_developement=speech_developement,
-                             single_words=single_words,full_sentences=full_sentences,response_to_calling_names=response_to_calling_names,response_to_instructions=response_to_instructions,reapeats_spoken_words=reapeats_spoken_words,communication_loops=communication_loops,
-                             past_history_significance=past_history_significance,clinical_history_significance=clinical_history_significance,ho_surgery=ho_surgery,ho_hospitalization=ho_hospitalization,ho_previous_treatment=ho_previous_treatment,
-                             personal_developement=personal_developement,learning_behavior=learning_behavior,behavior=behavior,parenting_style=parenting_style,present_school_name=present_school_name,school_board=school_board,school_medium=school_medium,school_comments=school_comments,concerns_first_noticed_in=concerns_first_noticed_in,attendance=attendance,liked_subjects=liked_subjects,unliked_subjects=unliked_subjects,present_school_concerns=present_school_concerns,
+        autData=AutisticData(firstName=name,address=address,gender=gender,refferedBy=refferedby,referredBy_phone=referredBy_phone,birthDate=birthDate,birthWeight=birthWeight,term=term,preterm_weeks=preterm_weeks,delivery=deliveryDetails,consanguinity=consanguinity,perninantalEvents=perninantalEventsDetails,treatment=treatment,requiredNICUstay=requiredNICUstayDets,
+                             neurological_concern=neurological_concerns,developemental_concerns=developemental_concerns,delayed_motor_developement=delayed_motor_developement,delayed_sensory_dev=delayed_sensory_dev,delayed_speech_developement=delayed_speech_developement,learning_concerns=learning_concerns,behavioral_concerns=behavioral_concerns,
+                             motor_development=motor_development,social_smile=social_smile,neck_holding=neck_holding,roll_over=roll_over,sitting_up=sitting_up,standing=standing,walking=walking,climbing_staircase=climbing_staircase,motorDevDetails=motorDevDetails,speech_developement=speech_developement,
+                             single_words=single_words,full_sentences=full_sentences,response_to_calling_names=response_to_calling_names,response_to_instructions=response_to_instructions,reapeats_spoken_words=reapeats_spoken_words,communication_loops=communication_loops,speechDevDetails=speechDevDetails,
+                             clinical_history_significance=clinical_history_significance,ho_surgery=ho_surgery,ho_hospitalization=ho_hospitalization,ho_previous_treatment=ho_previous_treatment,PastHistoryDetails=PastHistoryDetails,
+                             personal_developement=personal_developement,learning_behavior=learning_behavior,behavior=behavior,tv_view_hrs=tv_view_hrs,UnhealthyDietryHabits=UnhealthyDietryHabits,UnhealthySleepHabits=UnhealthySleepHabits,parenting_style=parenting_style,BehavioralAndPersonalDetails=BehavioralAndPersonalDetails,
+                             present_school_name=present_school_name,school_board=school_board,school_medium=school_medium,school_comments=school_comments,concerns_first_noticed_in=concerns_first_noticed_in,attendance=attendance,liked_subjects=liked_subjects,unliked_subjects=unliked_subjects,present_school_concerns=present_school_concerns,
                              weight=weight,height=height,head_circumference=head_circumference,skull_shape=skull_shape,general_neurology=general_neurology,general_neurology_details=general_neurology_details,
                              skin_exam=skin_exam,joints=joints,neurology=neurology,neurology_details=neurology_details,hypertrophy_of_muscles=hypertrophy_of_muscles,abnormal_tone_pattern=abnormal_tone_pattern,muscle_tone_neurology=muscle_tone_neurology,muscle_neurology=muscle_neurology,muscle_neurology_details=muscle_neurology_details,muscle_power_details=muscle_power_details,
                              deep_tendon_reflexes=deep_tendon_reflexes,deep_tendon_reflexes_details=deep_tendon_reflexes_details,coordination=coordination,coordination_details=coordination_details,
@@ -231,12 +255,11 @@ def saveForm(request):
                              learning_impression=learning_impression,behavior_impression=behavior_impression,neurology_evaluation=neurology_evaluation,
                              developement_evaluation=developement_evaluation,learning_evaluation_plan=learning_evaluation_plan,special_education_intervention=special_education_intervention,remedial_intervention=remedial_intervention,
                              behavioral_modification=behavioral_modification,academic_suggestions=academic_suggestions,followUpPlan=followUpPlan,medical_treatment_plan=medical_treatment_plan)
-        autData=AutisticData()
-        autData.save()
-        
+        # autData=AutisticData()
+        # autData.save()
         
         # # Now, let's add data to our worksheet
-        # colNames=["Name","Address","Gender","Reffered By","Birth Date","Birth Weight","Term","Delivery Details","Consanguinity","Perninantal Events Details","Treatment","Required NICU stay","Neurological Concerns","Developement Concerns","Learning Concerns","Behavioral Concerns","Motor Developement","Social Smile","Neck Holding","Roll Over","Sitting Up","Standing","Walking","Speech Developement","Single Words","Full Sentences At","Resopnse to calling names","Response to instructions","Repeats spoken words","Communication Loops","Past History Significance","Clinical History Significance","H/O surgery","H/O Hospitalization","H/O previous treatment","Personal Developement","Learning Behavior","Parenting Style","Present School Name","School Board","School Medium","School Comments","Concerns first noticed in","Attendance","Liked Subjects","Unliked Subjects","Present School Concers","Weight","Height","Head circumference","Skull Shape","General Neurology","General Neurology Details","Skin Exam","Joints","Neurology","Neurology Details","Hypertrophy Of Muscles","Abnormal Tone Pattern","Muscle tone neurology","Muscle Neurology","Muscle Neurology Details","Muscle power Details","Deep Tendon Reflexes","Deep tendon reflexes details","Coordination","Coordination Details","Abnormal Movements","Abnormal Movements Details","Motor Deficit","Gait","Balance","Visual Deficit","Hearing Deficit","Eye Contact","Motor Imitation Skills","Pointing Behaviors","Stereotypic Behaviors","Sensory Defensive Behaviors","Speech","Evaluation on MChat","Developement Screening","Gross Motor","Speech Screening","Fine motor","Social Emotion","Learing Evaluation","Behavior Evaluation","Neurology Impression","Cerebral Palsy","Cognitive Disability","Mental Retardation","Developemental Impression","Learning Impression","Behavior Impression","Neurology Evaluation","Developement Evaluation","Learning Evaluation Plan","Special Education Intervention","Remedial Intervention","Behavioral Modification","Academic Suggestions","Follow Up Plan","Medical Treatment Plan"]
+        # colNames=["Name","Address","Gender","Reffered By","Phone no","Birth Date","Birth Weight","Term","Term Weeks","Delivery Details","Consanguinity","Perninantal Events Details","Treatment","Required NICU stay","Neurological Concerns","Developement Concerns","Delayed Motor Developement","Delayed Sensory Developement","Delayed Speech","Learning Concerns","Behavioral Concerns","Motor Developement","Social Smile","Neck Holding","Roll Over","Sitting Up","Standing","Walking","Climbing Staircase","Speech Developement","Motor Developement Details","Single Words","Full Sentences At","Resopnse to calling names","Response to instructions","Repeats spoken words","Communication Loops","Speech Developement Details","Clinical History Significance","H/O surgery","H/O Hospitalization","H/O previous treatment","Past History Details","Personal Developement","Learning Behavior","TV viewing hours","Unhealthy Dietry Habits","Unhealthy Sleep Habits","Parenting Style","Behavioral and Personal Details","Present School Name","School Board","School Medium","School Comments","Concerns first noticed in","Attendance","Liked Subjects","Unliked Subjects","Present School Concers","Weight","Height","Head circumference","Skull Shape","General Neurology","General Neurology Details","Skin Exam","Joints","Neurology","Neurology Details","Hypertrophy Of Muscles","Abnormal Tone Pattern","Muscle tone neurology","Muscle Neurology","Muscle Neurology Details","Muscle power Details","Deep Tendon Reflexes","Deep tendon reflexes details","Coordination","Coordination Details","Abnormal Movements","Abnormal Movements Details","Motor Deficit","Gait","Balance","Visual Deficit","Hearing Deficit","Eye Contact","Motor Imitation Skills","Pointing Behaviors","Stereotypic Behaviors","Sensory Defensive Behaviors","Speech","Evaluation on MChat","Developement Screening","Gross Motor","Speech Screening","Fine motor","Social Emotion","Learing Evaluation","Behavior Evaluation","Neurology Impression","Cerebral Palsy","Cognitive Disability","Mental Retardation","Developemental Impression","Learning Impression","Behavior Impression","Neurology Evaluation","Developement Evaluation","Learning Evaluation Plan","Special Education Intervention","Remedial Intervention","Behavioral Modification","Academic Suggestions","Follow Up Plan","Medical Treatment Plan"]
   
         # # # Creating the first column
         # char='A'
@@ -260,6 +283,9 @@ def saveForm(request):
         
         neurological_concerns="\n".join(neurological_concerns)
         developemental_concerns="\n".join(developemental_concerns)
+        delayed_motor_developement="\n".join(delayed_motor_developement)
+        delayed_sensory_dev="\n".join(delayed_sensory_dev)
+        delayed_speech_developement="\n".join(delayed_speech_developement)
         learning_concerns="\n".join(learning_concerns)
         behavioral_concerns="\n".join(behavioral_concerns)
         
@@ -274,6 +300,7 @@ def saveForm(request):
         hearing_deficit="\n".join(hearing_deficit)
         
         speech_screening="\n".join(speech_screening)
+        gross_motor="\n".join(gross_motor)
         fine_motor="\n".join(fine_motor)
         social_emotion="\n".join(social_emotion)
         learning_evaluation="\n".join(learning_evaluation)
@@ -293,51 +320,61 @@ def saveForm(request):
         academic_suggestions="\n".join(academic_suggestions)
         medical_treatment_plan="\n".join(medical_treatment_plan)
         
-        colValues=[name,address,gender,refferedby,birthDate,birthWeight,term,delivery,consanguinity,perninantalEvents,treatment,requiredNICUstay,neurological_concerns,developemental_concerns,learning_concerns,behavioral_concerns,
-                   motor_development,social_smile,neck_holding,roll_over,sitting_up,standing,walking,speech_developement,single_words,full_sentences,response_to_calling_names,response_to_instructions,reapeats_spoken_words,communication_loops,
-                   past_history_significance,clinical_history_significance,ho_surgery,ho_hospitalization,ho_previous_treatment,
-                   personal_developement,learning_behavior,behavior,parenting_style,
+        colValues=[name,address,gender,refferedby,referredBy_phone,birthDate,birthWeight,term,preterm_weeks,delivery,consanguinity,perninantalEvents,treatment,requiredNICUstay,neurological_concerns,developemental_concerns,delayed_motor_developement,delayed_sensory_dev,delayed_speech_developement,learning_concerns,behavioral_concerns,
+                   motor_development,social_smile,neck_holding,roll_over,sitting_up,standing,walking,climbing_staircase,motorDevDetails,speech_developement,single_words,full_sentences,response_to_calling_names,response_to_instructions,reapeats_spoken_words,communication_loops,speechDevDetails,
+                   clinical_history_significance,ho_surgery,ho_hospitalization,ho_previous_treatment,PastHistoryDetails,
+                   personal_developement,learning_behavior,tv_view_hrs,UnhealthyDietryHabits,UnhealthySleepHabits,parenting_style,BehavioralAndPersonalDetails,
                    present_school_name,school_board,school_medium,school_comments,concerns_first_noticed_in,attendance,liked_subjects,unliked_subjects,present_school_concerns,
                    weight,height,head_circumference,skull_shape,general_neurology,general_neurology_details,skin_exam,joints,neurology,neurology_details,hypertrophy_of_muscles,abnormal_tone_pattern,muscle_tone_neurology,muscle_neurology,muscle_neurology_details,muscle_power_details,deep_tendon_reflexes,deep_tendon_reflexes_details,coordination,coordination_details,abnormal_movements,abnormal_movements_details,motor_deficit,gait,balance,
                    visual_deficit,hearing_deficit,eye_contact,motor_imitation_skills,pointing_behaviors,stereotypic_behaviors,sensory_defensive_behaviors,speech,evaluationMChat,development_screening,gross_motor,speech_screening,fine_motor,social_emotion,learning_evaluation,behavior_evaluation,
                    neurology_impression,cerebral_palsy,cognitive_disability,mental_retardation,developement_impression,learning_impression,behavior_impression,
                    neurology_evaluation,developement_evaluation,learning_evaluation_plan,special_education_intervention,remedial_intervention,behavioral_modification,academic_suggestions,followUpPlan,
                    medical_treatment_plan]
-        char='A'
-        char2=chr(ord('A')-1)
-        flag=0
-        for name in colValues:
-            if char<='Z' and flag==0:
-                worksht.cell("{char}{row_count}".format(char=char,row_count=row_count)).value = name
-            else:
-                flag=1
-                if(char>'Z'):
-                    char='A'
-                    char2=chr(ord(char2)+1)
-                worksht.cell("{char2}{char}{row_count}".format(char2=char2,char=char,row_count=row_count)).value = name
-            char=chr(ord(char)+1)
-        
-        
+
+        fill_gsheet(colValues,row_count)
         # worksht.set_dataframe(new_row,(row_count,1), copy_index = 'TRUE', copy_head = 'TRUE')
         # worksht.delete_rows(row_count , number=1)
 
         # worksheet = worksht.insert_rows(last_row, number=1, values= new_row)
         
+
+
+    return render(request, '../templates/afterSubmit.html')
+
+
+def fill_gsheet(colValues,row_count):
+    # progress_recorder= ProgressRecorder(self)
+    char='A'
+    char2=chr(ord('A')-1)
+    flag=0
+    i=0
+    for name in colValues:
         
-# # if updating multiple values, the data
-# # should be in a matrix format
-# worksht.update_values("A2:A6", [["Pencil"], ["Eraser"], 
-#                                 ["Sharpener"], ["Ruler"], 
-#                                 ["Pen"]])  # Adding row values
-  
-# # Similarly, creating the second column
-# worksht.cell("B1").set_text_format("bold", True).value = "Price"
-# worksht.update_values("B2:B6", [[5], [3], [5], [15], [10]])
-  
-# # Creating a basic bar chart
-# worksht.add_chart(("A2", "A6"), [("B2", "B6")], "Shop")
+        if char<='Z' and flag==0:
+            worksht.cell("{char}{row_count}".format(char=char,row_count=row_count)).value = name
+        else:
+            flag=1
+            if(char>'Z'):
+                char='A'
+                char2=chr(ord(char2)+1)
+            worksht.cell("{char2}{char}{row_count}".format(char2=char2,char=char,row_count=row_count)).value = name
+        char=chr(ord(char)+1)
+        i+=1
+        # progress_observer.set_progress(i, total_work_to_do)
+        # progress_recorder.set_progress(i+1,len(colValues),f'On {i}')
+           
 
-
-    return HttpResponse('ok')
 
 # ,motor_development,social_smile,neck_holding,roll_over,sitting_up,standing,walking,speech_developement,single_words,full_sentences,response_to_calling_names,response_to_instructions,reapeats_spoken_words,communication_loops,past_history_significance,clinical_history_significance,ho_surgery,ho_hospitalization,ho_previous_treatment,personal_developement,learning_behavior,behavior,parenting_style,present_school_name,school_board,school_medium,school_comments,concerns_first_noticed_in,attendance,liked_subjects,unliked_subjects,present_school_concerns,weight,height,head_circumference,skull_shape,general_neurology,general_neurology_details,skin_exam,joints,neurology,neurology_details,hypertrophy_of_muscles,abnormal_tone_pattern,muscle_tone_neurology,muscle_neurology,muscle_neurology_details,muscle_power_details,deep_tendon_reflexes,deep_tendon_reflexes_details,coordination,coordination_details,abnormal_movements,abnormal_movements_details,motor_deficit,gait,balance,visual_deficit,hearing_deficit,eye_contact,motor_imitation_skills,pointing_behaviors,stereotypic_behaviors,sensory_defensive_behaviors,speech,evaluationMChat,development_screening,gross_motor,speech_screening,fine_motor,social_emotion,learning_evaluation,behavior_evaluation,neurology_impression,cerebral_palsy,cognitive_disability,mental_retardation,developement_impression,learning_impression,behavior_impression,neurology_evaluation,developement_evaluation,learning_evaluation_plan,special_education_intervention,remedial_intervention,behavioral_modification,academic_suggestions,followUpPlan,medical_treatment_plan
+
+
+# def get_progress(self, request, task_id): 
+#     result = AsyncResult(task_id) 
+#     response_data = { 
+#         'state': result.state, 
+#         'details': self.result.info,
+#     } 
+#     return HttpResponse(
+#         json.dumps(response_data), 
+#         content_type='application/json'
+#     )

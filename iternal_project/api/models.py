@@ -1,5 +1,10 @@
 from django.db import models
 
+class User(models.Model):
+    email=models.EmailField(max_length = 254)
+    phone_no=models.TextField(default='')
+    username=models.TextField(max_length=50,default='')
+
 # Create your models here.
 class AutisticData(models.Model):
     caseno=models.AutoField(primary_key=True)
@@ -7,11 +12,13 @@ class AutisticData(models.Model):
     address = models.TextField(default='')
     gender=models.CharField(max_length=20,default='other')
     refferedBy= models.CharField(max_length=50,default='')
+    referredBy_phone = models.CharField(max_length=50,default='')
     
     # Birth history
-    birthDate=models.DateField(default='2001-01-01')
-    birthWeight=models.IntegerField(default=0)
+    birthDate=models.CharField(max_length=20,default='')
+    birthWeight=models.CharField(max_length=20,default='NA')
     term=models.CharField(max_length=20,default='NA')
+    preterm_weeks=models.CharField(max_length=20,default='0')
     delivery=models.CharField(max_length=20,default='NA')
     deliveryDetails=models.CharField(max_length=1000,default='NA')
     consanguinity=models.CharField(max_length=20,default='NA')
@@ -23,6 +30,9 @@ class AutisticData(models.Model):
     #Concerns
     neurological_concern=models.TextField(default='NA')
     developemental_concerns=models.TextField(default='NA')
+    delayed_motor_developement=models.TextField(default='NA')
+    delayed_sensory_dev=models.TextField(default='NA')
+    delayed_speech_developement=models.TextField(default='NA')
     learning_concerns=models.TextField(default='NA')
     behavioral_concerns=models.TextField(default='NA')
     
@@ -33,6 +43,7 @@ class AutisticData(models.Model):
     roll_over=models.IntegerField(default=0)
     sitting_up=models.IntegerField(default=0)
     standing=models.IntegerField(default=0)
+    climbing_staircase=models.IntegerField(default=0)
     walking=models.IntegerField(default=0)
     speech_developement=models.CharField(max_length=20,default='normal')
     single_words=models.IntegerField(default=0)
@@ -41,19 +52,22 @@ class AutisticData(models.Model):
     response_to_instructions=models.CharField(max_length=20,default='yes')
     reapeats_spoken_words=models.CharField(max_length=20,default='no')
     communication_loops=models.CharField(max_length=20,default='no')
-        
+    motorDevDetails=models.TextField(default='NA')
+    speechDevDetails=models.TextField(default='NA')
+    
     #Past history
-    past_history_significance=models.CharField(max_length=20,default='not significant')
     clinical_history_significance=models.CharField(max_length=20,default='NA')
     ho_surgery=models.CharField(max_length=20,default='absent')
     ho_hospitalization=models.CharField(max_length=20,default='absent')
     ho_previous_treatment=models.CharField(max_length=20,default='absent')
+    PastHistoryDetails=models.TextField(max_length=20,default='NA')
     
     #
     personal_developement=models.TextField(default='NA')
     learning_behavior=models.TextField(default='NA')
     behavior=models.TextField(default='NA')
     parenting_style=models.CharField(max_length=20,default='mixed')
+    BehavioralAndPersonalDetails=models.TextField(default='NA')
     
     #academic history
     present_school_name=models.TextField(default='NA')
@@ -65,7 +79,9 @@ class AutisticData(models.Model):
     liked_subjects=models.TextField(default='NA')
     unliked_subjects=models.TextField(default='NA')
     present_school_concerns=models.TextField(default='NA')
-    
+    tv_view_hrs=models.CharField(max_length=20,default='NA')
+    UnhealthyDietryHabits=models.TextField(default='NA')
+    UnhealthySleepHabits=models.TextField(default='NA')
     
     weight=models.IntegerField(default=0)
     height=models.IntegerField(default=0)

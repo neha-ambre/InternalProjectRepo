@@ -13,6 +13,11 @@ input{
     border-radius: 5%;
 } */
 
+body{
+    background-image: url('https://images.unsplash.com/photo-1557825835-a526494be845?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fG1lZGljYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60')  !important; 
+    /* background-repeat:no-repeat; */
+}
+
 .card-header {
     padding: .5rem 1rem;
     margin-bottom: 0;
@@ -40,4 +45,8 @@ input{
     margin-bottom: 0;
     background-color: white;
     border-bottom: 1px solidrgba(0,0,0,.125);
+}
+
+.outer{
+    width: 450px; 
 }
