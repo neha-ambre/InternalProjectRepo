@@ -14,7 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path,include,re_path
+from iternal_project import views
+from members import views as memViews
+from api import views as apiViews
 
 admin.site.site_header = "Name of the Admin"
 admin.site.index_title = "Welcome "
@@ -22,5 +25,29 @@ admin.site.site_title = "Weilcome"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('api.urls')) #if we get anything it is dispatch and send to api.urls
+    path('',views.index,name="iternal_project"),
+    path('formSubmitted/index/',views.index,name="iternal_project"),
+    path('index/',views.index,name="iternal_project"),
+    path('temp',apiViews.temp,name="temp"),
+    path('signUp',memViews.signUp,name="signUp"),
+    path('saveUser/',memViews.saveUser,name='saveUser'),
+    path('login/saveForm/',apiViews.saveForm,name='login_saveForm'),
+    path('members/login/saveForm/',apiViews.saveForm,name='loginSaveForm'),
+    # path('login/fillForm/',memViews.fillForm,name='login_fillForm'),
+    path('fillForm/',memViews.fillForm,name='fillForm'),
+    path('fillForm/saveForm/',apiViews.saveForm,name='saveForm'),
+    path('formSubmitted/',apiViews.formSubmitted,name='formSubmitted'),
+    
+    path('saveForm/',apiViews.saveForm,name='saveForm'),
+    # path('saveForm/formSubmitted/',apiViews.formSubmitted,name='saveFormSubmitted'),
+    # path('/saveForm/formSubmitted/',apiViews.formSubmitted,name='saveFormSubmitted'),
+    # # path('/saveForm/',apiViews.formSubmitted,name='saveFormSubmitted'),
+    
+    # path('/formSubmitted/',apiViews.formSubmitted,name='FormSubmitted'),
+    path('getUser/',memViews.getUser,name='getUser'),   
+    path('login/',memViews.login_user,name='login'),
+    path('logout/',memViews.logout_user,name='login'), 
+    path('members/',include('members.urls')),
+    path('members/',include('django.contrib.auth.urls')),
+    path('excel/',apiViews.ExportImportExcel.as_view())
 ]

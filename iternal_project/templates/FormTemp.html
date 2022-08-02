@@ -1,12 +1,30 @@
 {%extends 'base.html' %}
 {% block title %}Home{% endblock title %}
+
+{% block userinfo %}
+<div class="tooltip_cont">
+  <a class="mx-1 tooltip__contd" href="/logout"><i class="fa-solid fa-right-from-bracket fa-lg"  style="color:white !important;"></i>
+    <span class="tooltiptext">Logout</span>
+  </a>
+</div>
+{% endblock %}
+
+{% block navbuttons %}
+<ul class="navbar-nav me-auto">
+  <li class="nav-item">
+    <a class="nav-link active mx-4" aria-current="page" href="#"><h5>Home</h5></a>
+  </li>
+ 
+</ul>
+{% endblock %}
+
 {%block body%}
 {% load static %}
 {% load crispy_forms_tags %}
 {% load widget_tweaks %}
 
 
-<link rel="stylesheet" href="../static/css/formstyle.css">
+<!-- <link rel="stylesheet" href="/iternal_project/static/css/formstyle.css" type="text/css"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova&display=swap" rel="stylesheet">
@@ -15,6 +33,70 @@
 <!-- Bootstrap 5 JavaScript Bundle with Popper -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script> -->
 <style>
+
+    i {
+   color: black;
+}
+
+
+.card-header {
+    padding: .5rem 1rem;
+    margin-bottom: 0;
+    background-color:white;
+    border-bottom: 1px solidrgba(0,0,0,.125);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    border: none;
+}
+
+.btn-link {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+.card-header {
+    padding: .5rem 1rem;
+    margin-bottom: 0;
+    background-color: white;
+    border-bottom: 1px solidrgba(0,0,0,.125);
+}
+
+     /* Tooltip text */
+  .tooltip__contd .tooltiptext {
+      visibility: hidden;
+      width: 70px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      padding: 2px 0;
+      border-radius: 10px;
+     
+      /* Position the tooltip text - see examples below! */
+      position: absolute;
+      z-index: 1;
+      top: 0%;
+      margin-left: -10px;
+    }
+  
+    .tooltip__contd:hover .tooltiptext {
+      visibility: visible;
+      opacity: 0.7;
+      position: absolute;
+    }
+  
+    .tooltip__contd{
+      margin-right:50px !important;
+    }
+  
+
+
     .card-header{
         background: rgba(255, 255, 255, 0.0) !important;
         border-radius: 20px !important;
@@ -49,12 +131,27 @@
     position: absolute;
     z-index: 1;
   }
+
+  input, textarea{
+    background-color: rgba(105, 68, 3, 0.207) !important;
+    border: rgb(61, 32, 32) !important;
+  }
   
+  body{
+    background-image: url('https://images.unsplash.com/photo-1557825835-a526494be845?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fG1lZGljYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60'); 
+    background-repeat:no-repeat; 
+    background-size: cover;
+  }
   /* Show the tooltip text when you mouse over the tooltip container */
   .tooltip__cont:hover .tooltiptext {
     visibility: visible;
   }
 
+  .header__form
+    {
+        font-size: 22px !important;
+        font-weight: bolder !important;
+    }
 
   @media only screen and (max-width: 600px) {
 
@@ -184,19 +281,19 @@
     }
     input[type=number]{
         width: 50% !important;
+        
     }
-    
+   
     
 }
 </style>
 
-<body style="background-image: url('https://images.unsplash.com/photo-1557825835-a526494be845?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fG1lZGljYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60'); background-repeat:no-repeat; background-size: cover;">
-    <h3 style="font-family:monospace;font-size: xx-large;">
-        <!-- <marquee direction="right">--WELCOME--</marquee> -->
-    </h3>
-    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+
+<body>
     <div class="container outer justify-content-center">
-        <form method="POST"  action="saveForm/" style="font-family: 'Ibarra Real Nova', serif; ">
+        <form id="data__form" method="POST"  action="saveForm/" style="font-family: 'Ibarra Real Nova', serif; ">
             {% csrf_token %}
                 <h3 class="my-3 text-center mx-0 px-0" style="font-weight:bolder">Patient Information</h3>
     
@@ -206,7 +303,7 @@
                     <div class="tooltip__cont">
                         <h5 class="mb-0">
                             <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#personalDetails" aria-expanded="true" aria-controls="collapseOne">
-                               Personal Details
+                               <span class="header__form">Personal Details</span>
                             </button>
                             </h5>
                         <span class="tooltiptext">Click Here</span>
@@ -219,7 +316,7 @@
                                 <tr class="my-4">
                                     <td>Name</td>
                                     <td>
-                                        <input class="form-control w-50" type="text" name="personName" >
+                                        <input class="form-control w-50" type="text" id="personName" name="personName">
                                     </td>
                                   </tr>
                 
@@ -234,13 +331,13 @@
                                     <td>Gender</td>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input mx-2" type="radio" value="male" name="gender" >
+                                            <input class="form-check-input mx-2" type="radio" value="boy" name="gender" >
                                             <label class="form-check-label" for="flexRadioDefault1">
                                               Boy
                                             </label>
                                           </div>
                                           <div class="form-check">
-                                            <input class="form-check-input mx-2" type="radio" value="female" name="gender" checked>
+                                            <input class="form-check-input mx-2" type="radio" value="girl" name="gender" >
                                             <label class="form-check-label" >
                                               Girl
                                             </label>
@@ -275,7 +372,7 @@
                     <div class="tooltip__cont">
                         <h5 class="mb-0">
                             <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#birthHistory" aria-expanded="true" aria-controls="collapseOne">
-                               Birth History
+                                <span class="header__form">Birth History</span>
                             </button>
                             </h5>
                         <span class="tooltiptext">Click Here</span>
@@ -297,7 +394,7 @@
                                                 </label>
                                               </div>
                                               <div class="form-check">
-                                                <input class="form-check-input mx-2" type="radio" value="absent" name="consanguinity" checked>
+                                                <input class="form-check-input mx-2" type="radio" value="absent" name="consanguinity" >
                                                 <label class="form-check-label" >
                                                   Absent
                                                 </label>
@@ -323,7 +420,7 @@
                                         <td>Term</td>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input mx-2" type="radio" value="fullterm" name="term"   checked>
+                                                <input class="form-check-input mx-2" type="radio" value="fullterm" name="term"   >
                                                 <label class="form-check-label" for="flexRadioDefault1">
                                                   Fullterm
                                                 </label>
@@ -345,7 +442,7 @@
                                         <td>Delivery</td>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input mx-2" type="radio" value="normal" name="delivery"   checked>
+                                                <input class="form-check-input mx-2" type="radio" value="normal" name="delivery"   >
                                                 <label class="form-check-label" for="flexRadioDefault1">
                                                   Normal
                                                 </label>
@@ -386,7 +483,7 @@
                                             </label>
                                           </div>
                                           <div class="form-check">
-                                            <input class="form-check-input mx-2" type="radio" value="absent" name="perninantalEvents" checked>
+                                            <input class="form-check-input mx-2" type="radio" value="absent" name="perninantalEvents" >
                                             <label class="form-check-label" >
                                               Absent
                                             </label>
@@ -418,7 +515,7 @@
                                             </label>
                                           </div>
                                           <div class="form-check">
-                                            <input class="form-check-input mx-2" type="radio" value="no" name="requiredNICUstay" checked>
+                                            <input class="form-check-input mx-2" type="radio" value="no" name="requiredNICUstay" >
                                             <label class="form-check-label" >
                                               No
                                             </label>
@@ -445,7 +542,7 @@
                     <div class="tooltip__cont">
                         <h5 class="mb-0">
                             <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#concerns" aria-expanded="true" aria-controls="collapseOne">
-                               Concerns
+                                <span class="header__form">Concerns</span>
                             </button>
                             </h5>
                         <span class="tooltiptext">Click Here</span>
@@ -699,7 +796,7 @@
                         <div class="tooltip__cont">
                             <h5 class="mb-0">
                                 <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#developementHistory" aria-expanded="true" aria-controls="collapseOne">
-                                   Developement History
+                                    <span class="header__form">Developement History</span>
                                 </button>
                                 </h5>
                             <span class="tooltiptext">Click Here</span>
@@ -717,7 +814,7 @@
                                     <td>
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-2">
-                                                <input id="motor-dev-normal" value="normal" type="radio" class="form-check-input" name="motor-developement" checked/>Normal
+                                                <input id="motor-dev-normal" value="normal" type="radio" class="form-check-input" name="motor-developement" />Normal
                                             </div>
                                             <div class="form-check d-inline mx-2">
                                                 <input id="motor-dev-mar-delay" value="marginal delay" type="radio" class="form-check-input" name="motor-developement"/>Marginal Delay
@@ -801,7 +898,7 @@
                                             </div>
                                             <div class="form-check d-inline mx-3">
                                                 <input id="speech-dev-delay" name="speech-developement" value="delayed" type="radio" class="form-check-input"
-                                                    checked="" />Delayed
+                                                     />Delayed
                                             </div>
                                         </div>
                                     </td>
@@ -840,11 +937,11 @@
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-3">
                                                 <input id="res-call-yes" value="yes" name="res-name-call" type="radio" class="form-check-input mx-2"
-                                                    checked="" />Yes
+                                                     />Yes
                                             </div>
                                             <div class="form-check d-inline mx-3">
                                                 <input id="res-call-no" value="no" name="res-name-call" type="radio" class="form-check-input mx-2"
-                                                    checked="" />No
+                                                     />No
                                             </div>
     
                                         </div>
@@ -858,11 +955,11 @@
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-3">
                                                 <input id="res-inst-yes" value="yes" name="res-inst-call" type="radio" class="form-check-input mx-2"
-                                                    checked="" />Yes
+                                                     />Yes
                                             </div>
                                             <div class="form-check d-inline mx-3">
                                                 <input id="res-inst-no" value="no" name="res-inst-call" type="radio" class="form-check-input mx-2"
-                                                    checked="" />
+                                                     />
                                                 <label class="custom-control-label" >No</label>
                                             </div>
     
@@ -877,12 +974,12 @@
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-3">
                                                 <input id="rep-words-yes" value="yes" name="rep-words" type="radio" class="form-check-input mx-2"
-                                                    checked="" />
+                                                     />
                                                 <label class="custom-control-label" >Yes</label>
                                             </div>
                                             <div class="form-check d-inline mx-3">
                                                 <input id="rep-words-no" value="no" name="rep-words" type="radio" class="form-check-input mx-2"
-                                                    checked="" />
+                                                     />
                                                 <label class="custom-control-label" >No</label>
                                             </div>
     
@@ -897,11 +994,11 @@
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-3">
                                                 <input id="comm-loop-yes" value="yes" name="comm-loop" type="radio" class="form-check-input mx-2"
-                                                    checked="" />Yes
+                                                     />Yes
                                             </div>
                                             <div class="form-check d-inline mx-3">
                                                 <input id="comm-loop-no" value="no" name="comm-loop" type="radio" class="form-check-input mx-2"
-                                                    checked="" />No
+                                                     />No
                                             </div>
     
                                         </div>
@@ -926,7 +1023,7 @@
                         <div class="tooltip__cont">
                             <h5 class="mb-0">
                                 <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#pastHistory" aria-expanded="true" aria-controls="collapseOne">
-                                   Past History
+                                    <span class="header__form">Past History</span>
                                 </button>
                                 </h5>
                             <span class="tooltiptext">Click Here</span>
@@ -956,7 +1053,7 @@
                                                     <input id="ho-surg-yes" name="ho-surg" value="present" type="radio" class="form-check-input mx-2"/>Present
                                                 </div>
                                                 <div class="form-check d-inline mx-3">
-                                                    <input id="ho-surg-no" name="ho-surg" value="absent" type="radio" class="form-check-input mx-2" checked="" />Absent
+                                                    <input id="ho-surg-no" name="ho-surg" value="absent" type="radio" class="form-check-input mx-2"  />Absent
                                                 </div>
     
                                             </div>
@@ -969,11 +1066,11 @@
                                         <td>
                                             <div class="container_p d-flex">
                                                 <div class="form-check d-inline mx-3">
-                                                    <input id="ho-hosp-yes" name="ho-hosp" value="present" type="radio" class="form-check-input mx-2" checked="" />Present
+                                                    <input id="ho-hosp-yes" name="ho-hosp" value="present" type="radio" class="form-check-input mx-2"  />Present
                                                 </div>
                                                 <div class="form-check d-inline mx-3">
                                                     <input id="ho-hosp-no" name="ho-hosp" value="absent" type="radio" class="form-check-input mx-2"
-                                                        checked="" />Absent
+                                                         />Absent
                                                 </div>
     
                                             </div>
@@ -986,10 +1083,10 @@
                                         <td>
                                             <div class="container_p d-flex">
                                                 <div class="form-check d-inline mx-3">
-                                                    <input id="ho-treatment-yes" value="absent" name="ho-treatment" type="radio" class="form-check-input mx-2" checked="" />Present
+                                                    <input id="ho-treatment-yes" value="absent" name="ho-treatment" type="radio" class="form-check-input mx-2"  />Present
                                                 </div>
                                                 <div class="form-check d-inline mx-3">
-                                                    <input id="ho-treatment-no" value="absent" name="ho-treatment" type="radio" class="form-check-input mx-2" checked="" />Absent
+                                                    <input id="ho-treatment-no" value="absent" name="ho-treatment" type="radio" class="form-check-input mx-2"  />Absent
                                                 </div>
     
                                             </div>
@@ -1013,7 +1110,7 @@
                         <div class="tooltip__cont">
                             <h5 class="mb-0">
                                 <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#behaviorHistory" aria-expanded="true" aria-controls="collapseOne">
-                                   Behavioral and Personal History
+                                    <span class="header__form">Behavioral and Personal History</span>
                                 </button>
                                 </h5>
                             <span class="tooltiptext">Click Here</span>
@@ -1179,22 +1276,22 @@
                                                     <div class="container_parenting d-flex">
                                                         <div class="form-check d-inline mx-3">
                                                             <input id="parenting-style-authoriterian" name="parenting-style" value="authoriterian" type="radio"
-                                                                class="form-check-input mx-2" checked="" />
+                                                                class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Authoriterian</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
                                                             <input id="parenting-style-authoritative" name="parenting-style" value="authoritative" type="radio"
-                                                                class="form-check-input mx-2" checked="" />
+                                                                class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Authoritative</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
                                                             <input id="parenting-style-permissive" name="parenting-style" type="radio" value="permissive"
-                                                                class="form-check-input mx-2" checked="" />
+                                                                class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Permissive</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
                                                             <input id="parenting-style-mixed" name="parenting-style" type="radio" value="mixed"
-                                                                class="form-check-input mx-2" checked="" />
+                                                                class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Mixed</label>
                                                         </div>
                                                     </div>
@@ -1221,7 +1318,7 @@
                         <div class="tooltip__cont">
                             <h5 class="mb-0">
                                 <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#academicHistory" aria-expanded="true" aria-controls="collapseOne">
-                                   Academic History
+                                    <span class="header__form">Academic History</span>
                                 </button>
                                 </h5>
                             <span class="tooltiptext">Click Here</span>
@@ -1309,7 +1406,7 @@
                                             <td>
                                                 <div class="container d-flex">
                                                     <div class="form-check d-inline mx-3">
-                                                        <input id="attendance-average" value="average" name="attendance" type="radio" class="form-check-input" checked="" />Average
+                                                        <input id="attendance-average" value="average" name="attendance" type="radio" class="form-check-input"  />Average
                                                     </div>
                                                     <div class="form-check d-inline mx-3">
                                                         <input id="attendance-misses" value="misses school often" name="attendance" type="radio" class="form-check-input"/>Misses school often
@@ -1378,7 +1475,7 @@
                         <div class="tooltip__cont">
                             <h5 class="mb-0">
                                 <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#examination" aria-expanded="true" aria-controls="collapseOne">
-                                   Examination
+                                    <span class="header__form">Examination</span>
                                 </button>
                                 </h5>
                             <span class="tooltiptext">Click Here</span>
@@ -1460,11 +1557,11 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="dysmorphism-present" name="dysmorphism" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="dysmorphism-present" name="dysmorphism" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Present</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="dysmorphism-absent" name="dysmorphism" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="dysmorphism-absent" name="dysmorphism" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Absent</label>
                                                         </div>
                                                     </div>
@@ -1488,11 +1585,11 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="neurocutaneous-markers-yes" name="neurocutaneous-markers" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="neurocutaneous-markers-yes" name="neurocutaneous-markers" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="neurocutaneous-markers-no" name="neurocutaneous-markers" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="neurocutaneous-markers-no" name="neurocutaneous-markers" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                     </div>
@@ -1516,11 +1613,11 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="pallor-yes" name="pallor" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="pallor-yes" name="pallor" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="pallor-no" name="pallor" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="pallor-no" name="pallor" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                     </div>
@@ -1544,11 +1641,11 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="organomegaly-yes" name="organomegaly" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="organomegaly-yes" name="organomegaly" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="organomegaly-no" name="organomegaly" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="organomegaly-no" name="organomegaly" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                     </div>
@@ -1611,11 +1708,11 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="generalized-wasting-yes" name="generalized-wasting" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="generalized-wasting-yes" name="generalized-wasting" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="generalized-wasting-no" name="generalized-wasting" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="generalized-wasting-no" name="generalized-wasting" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                     </div>
@@ -1637,11 +1734,11 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="hypertrophy-of-muscles-yes" name="hypertrophy-of-muscles" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="hypertrophy-of-muscles-yes" name="hypertrophy-of-muscles" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="hypertrophy-of-muscles-no" name="hypertrophy-of-muscles" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="hypertrophy-of-muscles-no" name="hypertrophy-of-muscles" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                     </div>
@@ -1663,7 +1760,7 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="muscle-tone-normal" value="normal" name="hypertrophy-of-muscles" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="muscle-tone-normal" value="normal" name="hypertrophy-of-muscles" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Normal</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
@@ -1707,11 +1804,11 @@
                                                 </div>
                                                 <div class="container2">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="abnormal-tone-pattern-yes" name="abnormal-tone-pattern" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="abnormal-tone-pattern-yes" name="abnormal-tone-pattern" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="abnormal-tone-pattern-no" name="abnormal-tone-pattern" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="abnormal-tone-pattern-no" name="abnormal-tone-pattern" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                 </div>
@@ -1852,11 +1949,11 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="generalized-hypotnia-yes" name="generalized-hypotnia" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="generalized-hypotnia-yes" name="generalized-hypotnia" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="generalized-hypotnia-no" name="generalized-hypotnia" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="generalized-hypotnia-no" name="generalized-hypotnia" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                     </div>
@@ -1867,11 +1964,11 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="spasticity-lower-limbs-yes" name="generalized-hypotnia" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="spasticity-lower-limbs-yes" name="generalized-hypotnia" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="spasticity-lower-limbs-no" name="generalized-hypotnia" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="spasticity-lower-limbs-no" name="generalized-hypotnia" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                     </div>
@@ -1883,11 +1980,11 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="ankle-tightness-yes" name="ankle-tightness" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="ankle-tightness-yes" name="ankle-tightness" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="ankle-tightness-no" name="ankle-tightness" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="ankle-tightness-no" name="ankle-tightness" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                     </div>
@@ -1899,11 +1996,11 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="dystonia-yes" name="dystonia" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="dystonia-yes" name="dystonia" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input id="dystonia-no" name="dystonia" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input id="dystonia-no" name="dystonia" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                     </div>
@@ -1940,7 +2037,7 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input value="normal" name="deep-tendon-reflexes" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input value="normal" name="deep-tendon-reflexes" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Normal</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
@@ -1960,7 +2057,7 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input value="normal" name="coordination" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input value="normal" name="coordination" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Normal</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
@@ -1983,7 +2080,7 @@
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input value="no" name="abnormal_movements" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input value="no" name="abnormal_movements" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                     </div>
@@ -2002,7 +2099,7 @@
                                                             <label class="custom-control-label" >Yes</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
-                                                            <input value="no" name="motor_deficit" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input value="no" name="motor_deficit" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >No</label>
                                                         </div>
                                                     </div>
@@ -2033,7 +2130,7 @@
                                                 <td>
                                                     <div class="container d-flex">
                                                         <div class="form-check d-inline mx-3">
-                                                            <input value="developed for age" name="balance" type="radio" class="form-check-input mx-2" checked="" />
+                                                            <input value="developed for age" name="balance" type="radio" class="form-check-input mx-2"  />
                                                             <label class="custom-control-label" >Developed for age</label>
                                                         </div>
                                                         <div class="form-check d-inline mx-3">
@@ -2055,7 +2152,7 @@
                         <div class="tooltip__cont">
                             <h5 class="mb-0">
                                 <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#evaluation" aria-expanded="true" aria-controls="collapseOne">
-                                   Evaluation
+                                    <span class="header__form">Evaluation</span>
                                 </button>
                                 </h5>
                             <span class="tooltiptext">Click Here</span>
@@ -2174,7 +2271,7 @@
                                         
                                         <div class="container">
                                             <div class="form-check d-flex mx-3">
-                                                <input value="good" name="motor_imitation_skills" type="radio" class="form-check-input mx-2" checked="" />
+                                                <input value="good" name="motor_imitation_skills" type="radio" class="form-check-input mx-2"  />
                                                 <label class="custom-control-label" >Good</label>
                                             </div>
                                             <div class="form-check d-flex mx-3">
@@ -2199,7 +2296,7 @@
                                                 <label class="custom-control-label" >Present</label>
                                             </div>
                                             <div class="form-check d-flex mx-3">
-                                                <input value="absent" name="pointing_behaviors" type="radio" class="form-check-input mx-2" checked="" />
+                                                <input value="absent" name="pointing_behaviors" type="radio" class="form-check-input mx-2"  />
                                                 <label class="custom-control-label" >Absent</label>
                                             </div>
                                             <div class="form-check d-flex mx-3">
@@ -2220,7 +2317,7 @@
                                                 <label class="custom-control-label" >Present</label>
                                             </div>
                                             <div class="form-check d-flex mx-3">
-                                                <input value="absent" name="stereotypic_behaviors" type="radio" class="form-check-input mx-2" checked="" />
+                                                <input value="absent" name="stereotypic_behaviors" type="radio" class="form-check-input mx-2"  />
                                                 <label class="custom-control-label" >Absent</label>
                                             </div>
                                             <div class="form-check d-flex mx-3">
@@ -2237,11 +2334,11 @@
                                         
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-3">
-                                                <input value="present" name="sensory_defensive_behaviors" type="radio" class="form-check-input mx-2" checked="" />
+                                                <input value="present" name="sensory_defensive_behaviors" type="radio" class="form-check-input mx-2"  />
                                                 <label class="custom-control-label" >Present</label>
                                             </div>
                                             <div class="form-check d-inline mx-3">
-                                                <input value="absent" name="sensory_defensive_behaviors" type="radio" class="form-check-input mx-2" checked="" />
+                                                <input value="absent" name="sensory_defensive_behaviors" type="radio" class="form-check-input mx-2"  />
                                                 <label class="custom-control-label" >Absent</label>
                                             </div>
                                            
@@ -2255,7 +2352,7 @@
                                         
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-3">
-                                                <input value="good" name="proactive_communication " type="radio" class="form-check-input mx-2" checked="" />
+                                                <input value="good" name="proactive_communication " type="radio" class="form-check-input mx-2"  />
                                                 <label class="custom-control-label" >Good</label>
                                             </div>
                                             <div class="form-check d-inline mx-3">
@@ -2272,7 +2369,7 @@
                                         
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-3">
-                                                <input value="clear" name="speech" type="radio" class="form-check-input mx-2" checked="" />
+                                                <input value="clear" name="speech" type="radio" class="form-check-input mx-2"  />
                                                 <label class="custom-control-label" >Clear</label>
                                             </div>
                                             <div class="form-check d-inline mx-3">
@@ -2301,7 +2398,7 @@
                                         
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-3">
-                                                <input value="normal" name="development_screening" type="radio" class="form-check-input mx-2" checked="" />
+                                                <input value="normal" name="development_screening" type="radio" class="form-check-input mx-2"  />
                                                 <label class="custom-control-label" >Normal</label>
                                             </div>
                                             <div class="form-check d-inline mx-3">
@@ -2684,7 +2781,7 @@
                         <div class="tooltip__cont">
                             <h5 class="mb-0">
                                 <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#impression" aria-expanded="true" aria-controls="collapseOne">
-                                   Impression
+                                    <span class="header__form">Impression</span>
                                 </button>
                                 </h5>
                             <span class="tooltiptext">Click Here</span>
@@ -2756,7 +2853,7 @@
                                         
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-3">
-                                                <input value="no" name="cerebral_palsy" type="radio" class="form-check-input mx-2" checked="" />
+                                                <input value="no" name="cerebral_palsy" type="radio" class="form-check-input mx-2"  />
                                                 <label class="custom-control-label" >No</label>
                                             </div>
                                             <div class="form-check d-inline mx-3">
@@ -2785,7 +2882,7 @@
                                         
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-3">
-                                                <input value="no" name="cognitive_disability" type="radio" class="form-check-input mx-2" checked="" />
+                                                <input value="no" name="cognitive_disability" type="radio" class="form-check-input mx-2"  />
                                                 <label class="custom-control-label" >No</label>
                                             </div>
                                             <div class="form-check d-inline mx-3">
@@ -2814,7 +2911,7 @@
                                         
                                         <div class="container d-flex">
                                             <div class="form-check d-inline mx-3">
-                                                <input value="no" name="mental_retardation" type="radio" class="form-check-input mx-2" checked="" />
+                                                <input value="no" name="mental_retardation" type="radio" class="form-check-input mx-2"  />
                                                 <label class="custom-control-label" >No</label>
                                             </div>
                                             <div class="form-check d-inline mx-3">
@@ -2971,7 +3068,7 @@
                         <div class="tooltip__cont">
                             <h5 class="mb-0">
                                 <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#plan" aria-expanded="true" aria-controls="collapseOne">
-                                   Plan
+                                    <span class="header__form">Plan</span>
                                 </button>
                                 </h5>
                             <span class="tooltiptext">Click Here</span>
@@ -3304,7 +3401,7 @@
                         <div class="tooltip__cont">
                             <h5 class="mb-0">
                                 <button type="button" class="btn btn-link tooltip__cont" data-toggle="collapse" data-target="#medicalTreatment" aria-expanded="true" aria-controls="collapseOne">
-                                   Medical Tretment
+                                    <span class="header__form">Medical Tretment</span>
                                 </button>
                                 </h5>
                             <span class="tooltiptext">Click Here</span>
@@ -3366,16 +3463,51 @@
                 </div>
     
                 <div class="container d-inline-flex justify-content-center my-5">
-                    <button class="btn btn-dark" onclick="alert('Do not close the window till form is submitted.This might take some time.')">Submit</button>
+                    <input class="btn" style="background-color:black !important; color:white !important" type="submit"></input>
                 </div>
             </div>
         </form>
     
     </div>
+
+       <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content"  style="background-color: rgba(105, 68, 3, 0.579) !important;">
+              <div class="modal-header" style="background-color: rgba(105, 68, 3, 0.579) !important;">
+                <h5 class="modal-title" id="staticBackdropLabel">Caution</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body"  style="background-color: rgba(105, 68, 3, 0.579) !important;">
+                Please wait till form is Submitted for confirmation.
+              </div>
+            
+          </div>
+        </div>
+    </div>
 </body>
 
 
-<script type="text/javascript">
+<script>
+
+    $(document).ready(function(){
+        $("#staticBackdrop").hide();
+    });
+    
+    $("#data__form").submit(function(e){
+        var name = $("#personName").val();
+        
+        if(name == ''){
+            e.preventDefault();
+            alert("Name is required"); 
+        }else{
+            $("#data__form").submit();
+        }
+    
+        });
+
    function preterm_checked(){
     if(document.getElementById('preterm').checked) {   
         document.getElementById("preterm_weeks").style.display = "block";

@@ -40,11 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
+    'members.apps.MembersConfig',
     'rest_framework',
     'crispy_forms',
     'crispy_bootstrap5',
     'widget_tweaks',
     'gsheets',
+    "django_tables2",
 ]
 
 

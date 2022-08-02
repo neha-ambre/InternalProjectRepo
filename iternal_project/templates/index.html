@@ -2,6 +2,31 @@
 {% load static %}
 {% block title %}Home{% endblock title %}
 
+{% block navbuttons %}
+<ul class="navbar-nav me-auto">
+  <li class="nav-item">
+    <a class="nav-link active mx-4" aria-current="page" href="/index"><h5>Home</h5></a>
+  </li>
+  
+  <li class="nav-item">
+    <a class="nav-link mx-4" href="/temp"><h5>Fill Form</h5></a>
+  </li>
+</ul>
+{% endblock %}
+
+{% block userinfo %}
+<div class="tooltip_cont" style="margin-right:25px">
+  <a class="mx-1 tooltip__cont" href="/login"><i class="fa-solid fa-arrow-right-to-bracket fa-lg"></i>
+    <span class="tooltiptext">Login</span>
+  </a>
+</div>
+<div class="tooltip_cont" style="margin-right:50px">
+  <a class="mx-1 tooltip__cont" href="/signUp"><i class="fa-solid fa-user-plus fa-lg"></i>
+    <span class="tooltiptext">Sign Up</span>
+  </a>
+</div>
+{% endblock %}
+
 {%block body %}
 <link rel="stylesheet" href="../static/css/index.css">
 <style>
@@ -15,9 +40,47 @@
     height:100%;
     display:block;
     z-index:1;
-    
+  }
+
+  /* Tooltip text */
+  .tooltip__cont .tooltiptext {
+  visibility: hidden;
+    width: 70px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 2px 0;
+    border-radius: 10px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    top: 0%;
+    margin-left: -10px;
+  }
+
+  .tooltip__cont:hover .tooltiptext {
+    visibility: visible;
+    position: absolute;
+    opacity: 0.7;
+  }
+
+  
+
+  span{
+    position: relative;
+  }
+
+  i{
+    color: white;
+  }
+
+  body{
+    background-image: url('../static/images/welcome.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
 </style>
-<img src="../static/images/backimg1.png">
+
 {%endblock body %}
