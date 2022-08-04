@@ -1,6 +1,6 @@
 /internalProjectVenv
-.env 
- env/ 
+.internalProjectVenv 
+ internalProjectVenv/ 
  # Django stuff: 
  __pycache__/ 
  *.log 
