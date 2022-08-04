@@ -1,39 +1,37 @@
-{%extends 'base.html' %}
-{% block title %}Home{% endblock title %}
-
+{%extends 'base.html' %} 
+{% block title %}Form Filled{% endblock title %} 
 {% block userinfo %}
 <div class="tooltip_cont">
-  <a class="mx-1 tooltip__contd" href="/logout"><i class="fa-solid fa-right-from-bracket fa-lg"  style="color:white !important;"></i>
+  <a class="mx-1 tooltip__contd" href="/logout"
+    ><i
+      class="fa-solid fa-right-from-bracket fa-lg"
+      style="color: white !important"
+    ></i>
     <span class="tooltiptext">Logout</span>
   </a>
 </div>
-{% endblock %}
+{% endblock %} 
 
 {% block navbuttons %}
 <ul class="navbar-nav me-auto">
-  <li class="nav-item">
-    <a class="nav-link active mx-4" aria-current="page" href="index/"><h5>Home</h5></a>
-  </li>
- 
 </ul>
-{% endblock %}
+{% endblock %} 
 
-{%block body%}
-{% load static %}
-{% load crispy_forms_tags %}
+{%block body%} 
+{% load static %} 
+{% load crispy_forms_tags %} 
 {% load widget_tweaks %}
 
 <style>
-
-  body{
-    background-image: url('../static/images/welcome.jpg');
+  body {
+    background-image: url("../static/images/undraw_experience_design_re_ca7l.svg");
     background-repeat: no-repeat;
     background-size: cover;
   }
-      i{
-        color:white;
-      }
-       /* Tooltip text */
+  i {
+    color: white;
+  }
+  /* Tooltip text */
   .tooltip__contd .tooltiptext {
     visibility: hidden;
     width: 70px;
@@ -42,7 +40,7 @@
     text-align: center;
     padding: 2px 0;
     border-radius: 10px;
-   
+
     /* Position the tooltip text - see examples below! */
     position: absolute;
     z-index: 1;
@@ -56,287 +54,42 @@
     position: absolute;
   }
 
-  .tooltip__contd{
-    margin-right:50px !important;
+  .tooltip__contd {
+    margin-right: 50px !important;
   }
 </style>
 
-<!-- <link rel="stylesheet" href="/iternal_project/static/css/formstyle.css" type="text/css"> -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-         
-          <div class="modal-body">
-            <div class="container justify-content-center my-4" style="border-radius:0.75rem;width:70%">
-              <table style="font-family: 'Lato', sans-serif !important;">
-                  <thead>
-                    <!-- <tr>
-                      <th scope="col">Case No</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Address</th>
-                      <th scope="col">Gender</th>
-                      <th scope="col">Reffered By</th>
-                      <th scope="col">Referred By phone no</th>
-                      <th scope="col">Birth Date</th>
-                      <th scope="col">Birth Weight</th>
-                      <th scope="col">Term</th>
-                      <th scope="col">Term weeks</th>
-                      <th scope="col">Delivery</th>
-                      <th scope="col">Delivery Details</th>
-                      <th scope="col">Consanguinity</th>
-                      <th scope="col">Perninantal Events</th>
-                      <th scope="col">Perninantal Events Details</th>
-                      <th scope="col">Treatment</th>
-                      <th scope="col">Required NICU stay</th>
-                      <th scope="col">Neurological concern</th>
-                      <th scope="col">Developemental concerns</th>
-                      <th scope="col">Delayed motor developement</th>
-                      <th scope="col">Delayed sensory developement</th>
-                      <th scope="col">Delayed speech developement</th>
-                      <th scope="col">Learning concerns</th>
-                      <th scope="col">Behavioral concerns</th>
-                      <th scope="col">Motor development</th>
-                      <th scope="col">Social smile</th>
-                      <th scope="col">Neck holding</th>
-                      <th scope="col">Roll over</th>
-                      <th scope="col">Sitting up</th>
-                      <th scope="col">Standing</th>
-                      <th scope="col">Climbing staircase</th>
-                      <th scope="col">Walking</th>
-                      <th scope="col">Speech developement</th>
-                      <th scope="col">Single words</th>
-                      <th scope="col">Full sentences</th>
-                      <th scope="col">Response to calling names</th>
-                      <th scope="col">Response to instructions</th>
-                      <th scope="col">Reapeats spoken words</th>
-                      <th scope="col">Communication loops</th>
-                      <th scope="col">Motor devlopement details</th>
-                      <th scope="col">Speech devlopement details</th>
-                      <th scope="col">Clinical history significance</th>
-                      <th scope="col">Ho surgery</th>
-                      <th scope="col">Ho hospitalization</th>
-                      <th scope="col">Ho previous treatment</th>
-                      <th scope="col">Past History Details</th>
-                      <th scope="col">Personal developement</th>
-                      <th scope="col">Learning behavior</th>
-                      <th scope="col">Behavior</th>
-                      <th scope="col">Parenting style</th>
-                      <th scope="col">Behavioral And Personal Details</th>
-                      <th scope="col">Present school name</th>
-                      <th scope="col">School board</th>
-                      <th scope="col">School medium</th>
-                      <th scope="col">School comments</th>
-                      <th scope="col">Concerns first noticed in</th>
-                      <th scope="col">Attendance</th>
-                      <th scope="col">Liked subjects</th>
-                      <th scope="col">Unliked subjects</th>
-                      <th scope="col">Present school concerns</th>
-                      <th scope="col">Tv viewing hrs</th>
-                      <th scope="col">Unhealthy Dietry Habits</th>
-                      <th scope="col">Unhealthy Sleep Habits</th>
-                      <th scope="col">Weight</th>
-                      <th scope="col">Height</th>
-                      <th scope="col">Head circumference</th>
-                      <th scope="col">Skull shape</th>
-                      <th scope="col">General neurology</th>
-                      <th scope="col">General neurology details</th>
-                      <th scope="col">Skin exam</th>
-                      <th scope="col">Joints</th>
-                      <th scope="col">Neurology</th>
-                      <th scope="col">Neurology details</th>
-                      <th scope="col">Hypertrophy of muscles</th>
-                      <th scope="col">Abnormal tone pattern</th>
-                      <th scope="col">Muscle tone neurology</th>
-                      <th scope="col">Muscle neurology</th>
-                      <th scope="col">Muscle neurology details</th>
-                      <th scope="col">Muscle power details</th>
-                      <th scope="col">Deep tendon reflexes</th>
-                      <th scope="col">Deep tendon reflexes details</th>
-                      <th scope="col">Coordination</th>
-                      <th scope="col">Coordination details</th>
-                      <th scope="col">Abnormal movements</th>
-                      <th scope="col">Abnormal movements details</th>
-                      <th scope="col">Motor deficit</th>
-                      <th scope="col">Gait</th>
-                      <th scope="col">Balance</th>
-                      <th scope="col">Visual deficit</th>
-                      <th scope="col">Hearing deficit</th>
-                      <th scope="col">Eye contact</th>
-                      <th scope="col">Motor imitation skills</th>
-                      <th scope="col">Pointing behaviors</th>
-                      <th scope="col">Stereotypic behaviors</th>
-                      <th scope="col">Sensory defensive behaviors</th>
-                      <th scope="col">Speech</th>
-                      <th scope="col">EvaluationMChat</th>
-                      <th scope="col">Development screening</th>
-                      <th scope="col">Gross motor</th>
-                      <th scope="col">Speech screening</th>
-                      <th scope="col">Fine motor</th>
-                      <th scope="col">Social emotion</th>
-                      <th scope="col">Learning evaluation</th>
-                      <th scope="col">Behavior evaluation</th>
-                      <th scope="col">Neurology impression</th>
-                      <th scope="col">Cerebral palsy</th>
-                      <th scope="col">Cognitive disability</th>
-                      <th scope="col">Mental retardation</th>
-                      <th scope="col">Developement impression</th>
-                      <th scope="col">Learning impression</th>
-                      <th scope="col">Behavior impression</th>
-                      <th scope="col">Neurology evaluation</th>
-                      <th scope="col">Developement evaluation</th>
-                      <th scope="col">Learning evaluation plan</th>
-                      <th scope="col">Learning evaluation plan</th>
-                      <th scope="col">Learning evaluation plan</th>
-                      <th scope="col">Behavioral modification</th>
-                      <th scope="col">Academic suggestions</th>
-                      <th scope="col">Follow Up Plan</th>
-                      <th scope="col">Follow Up Plan</th>
-                    </tr> -->
-                  </thead>
-                  <tbody>
-                    <!-- <tr>
-                      <td>{{data.case_no}}</td>
-                      <td>{{data.firstName}}</td>
-                      <td>{{data.address}}</td>
-                      <td>{{data.gender}}</td>
-                      <td>{{data.reffered_By}}</td>
-                      <td>{{data.referred_By_phone_no}}</td>
-                      <td>{{data.birth_Date}}</td>
-                      <td>{{data.birth_Weight}}</td>
-                      <td>{{data.term}}</td>
-                      <td>{{data.preterm_weeks}}</td>
-                      <td>{{data.delivery}}</td>
-                      <td>{{data.delivery_Details}}</td>
-                      <td>{{data.consanguinity}}</td>
-                      <td>{{data.perninantal_Events}}</td>
-                      <td>{{data.perninantal_Events_Details}}</td>
-                      <td>{{data.treatment}}</td>
-                      <td>{{data.required_NICU_stay}}</td>
-                      <td>{{data.neurological_concern}}</td>
-                      <td>{{data.developemental_concerns}}</td>
-                      <td>{{data.delayed_motor_developement}}</td>
-                      <td>{{data.delayed_sensory_dev}}</td>
-                      <td>{{data.delayed_speech_developement}}</td>
-                      <td>{{data.learning_concerns}}</td>
-                      <td>{{data.behavioral_concerns}}</td>
-                      <td>{{data.motor_development}}</td>
-                      <td>{{data.social_smile}}</td>
-                      <td>{{data.neck_holding}}</td>
-                      <td>{{data.roll_over}}</td>
-                      <td>{{data.sitting_up}}</td>
-                      <td>{{data.standing}}</td>
-                      <td>{{data.climbing_staircase}}</td>
-                      <td>{{data.walking}}</td>
-                      <td>{{data.speech_developement}}</td>
-                      <td>{{data.single_words}}</td>
-                      <td>{{data.full_sentences}}</td>
-                      <td>{{data.response_to_calling_names}}</td>
-                      <td>{{data.response_to_instructions}}</td>
-                      <td>{{data.reapeats_spoken_words}}</td>
-                      <td>{{data.communication_loops}}</td>
-                      <td>{{data.motor_devlopement_details}}</td>
-                      <td>{{data.speech_devlopement_details}}</td>
-                      <td>{{data.clinical_history_significance}}</td>
-                      <td>{{data.ho_surgery}}</td>
-                      <td>{{data.ho_hospitalization}}</td>
-                      <td>{{data.ho_previous_treatment}}</td>
-                      <td>{{data.Past_History_Details}}</td>
-                      <td>{{data.personal_developement}}</td>
-                      <td>{{data.learning_behavior}}</td>
-                      <td>{{data.behavior}}</td>
-                      <td>{{data.parenting_style}}</td>
-                      <td>{{data.Behavioral_And_Personal_Details}}</td>
-                      <td>{{data.present_school_name}}</td>
-                      <td>{{data.school_board}}</td>
-                      <td>{{data.school_medium}}</td>
-                      <td>{{data.school_comments}}</td>
-                      <td>{{data.concerns_first_noticed_in}}</td>
-      
-                      <td>{{data.attendance}}</td>
-                      <td>{{data.liked_subjects}}</td>
-                      <td>{{data.unliked_subjects}}</td>
-                      <td>{{data.present_school_concerns}}</td>
-                      <td>{{data.tv_view_hrs}}</td>
-                      <td>{{data.Unhealthy_Dietry_Habits}}</td>
-                      <td>{{data.Unhealthy_Sleep_Habits}}</td>
-                      <td>{{data.weight}}</td>
-                      <td>{{data.height}}</td>
-                      <td>{{data.head_circumference}}</td>
-                      <td>{{data.skull_shape}}</td>
-                      <td>{{data.general_neurology}}</td>
-                      <td>{{data.general_neurology_details}}</td>
-                      <td>{{data.skin_exam}}</td>
-                      <td>{{data.joints}}</td>
-                      <td>{{data.neurology}}</td>
-                      <td>{{data.neurology_details}}</td>
-                      <td>{{data.hypertrophy_of_muscles}}</td>
-                      <td>{{data.abnormal_tone_pattern}}</td>
-                      <td>{{data.muscle_tone_neurology}}</td>
-                      <td>{{data.muscle_neurology}}</td>
-                      <td>{{data.muscle_neurology_details}}</td>
-                      <td>{{data.muscle_power_details}}</td>
-                      <td>{{data.deep_tendon_reflexes}}</td>
-                      <td>{{data.deep_tendon_reflexes_details}}</td>
-                      <td>{{data.coordination}}</td>
-                      <td>{{data.coordination_details}}</td>
-                      <td>{{data.abnormal_movements}}</td>
-                      <td>{{data.abnormal_movements_details}}</td>
-                      <td>{{data.motor_deficit}}</td>
-                      <td>{{data.gait}}</td>
-                      <td>{{data.balance}}</td>
-                      <td>{{data.visual_deficit}}</td>
-                      <td>{{data.hearing_deficit}}</td>
-                      <td>{{data.eye_contact}}</td>
-                      <td>{{data.motor_imitation_skills}}</td>
-                      <td>{{data.pointing_behaviors}}</td>
-                      <td>{{data.stereotypic_behaviors}}</td>
-                      <td>{{data.sensory_defensive_behaviors}}</td>
-                      <td>{{data.speech}}</td>
-                      <td>{{data.evaluationMChat}}</td>
-                      <td>{{data.development_screening}}</td>
-                      <td>{{data.gross_motor}}</td>
-                      <td>{{data.speech_screening}}</td>
-                      <td>{{data.fine_motor}}</td>
-                      <td>{{data.social_emotion}}</td>
-                      <td>{{data.learning_evaluation}}</td>
-                      <td>{{data.behavior_evaluation}}</td>
-                      <td>{{data.neurology_impression}}</td>
-                      <td>{{data.cerebral_palsy}}</td>
-                      <td>{{data.cognitive_disability}}</td>
-                      <td>{{data.mental_retardation}}</td>
-                      <td>{{data.developement_impression}}</td>
-                      <td>{{data.learning_impression}}</td>
-                      <td>{{data.behavior_impression}}</td>
-                      <td>{{data.neurology_evaluation}}</td>
-                      <td>{{data.developement_evaluation}}</td>
-                      <td>{{data.learning_evaluation_plan}}</td>
-                      <td>{{data.special_education_intervention}}</td>
-                      <td>{{data.remedial_intervention}}</td>
-                      <td>{{data.behavioral_modification}}</td>
-                      <td>{{data.academic_suggestions}}</td>
-                      <td>{{data.follow_Up_Plan}}</td>
-                      <td>{{data.medical_treatment_plan}}</td>
-                    </tr> -->
-                    
-                      {% for key,value in request.session.data.items %}
-                      
-                      {% if value|length > 0 and value != '0' and value != 'absent' %}
-                      <tr>
-                        <th class="col-4">{{key}}</th>
-                        <td class="col-6">{{value}}</td>
-                      </tr>   
-                      {% endif %}
-                      <tr style="width:30px !important;"></tr> 
-                      {% endfor %}
-                    
-                  </tbody>
-                </table>
-                
-          </div>
-          </div>
-          
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+  rel="stylesheet"
+/>
+<body>  
+ <!-- <img src="../static/images/undraw_real_time_sync_re_nky7.svg" alt=""> -->
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div
+          class="container justify-content-center my-4"
+          style="border-radius: 0.75rem; width: 70%"
+        >
+          <table style="font-family: 'Lato', sans-serif !important">
+            <tbody>
+              {% for key,value in request.session.data.items %} 
+              {% if value|length > 0 and value != '0' and value != 'absent' %}
+              <tr>
+                <th class="col-4">{{key}}</th>
+                <td class="col-6">{{value}}</td>
+              </tr>
+              {% endif %}
+              <tr style="width: 30px !important"></tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
+    </div>
+  </div>
+</body>
 {%endblock body %}

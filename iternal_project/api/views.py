@@ -4,14 +4,12 @@ from rest_framework.response import Response
 
 from .serializers import AutisticDataSerializer
 from django.core import serializers as sr
-from django import template
 
 from .models import AutisticData
 import pandas as pd
 from rest_framework.views import APIView
 import pygsheets
 import json
-
 
 from google.oauth2 import service_account
 
@@ -190,15 +188,26 @@ def saveForm(request):
         UnhealthySleepHabits=request.POST.get('UnhealthySleepHabits')
         
         #academic history
-        present_school_name=request.POST.get('schoolName')
-        school_board=request.POST.get('schoolBoard')
-        if(school_board=='Board'):
-            school_board=''
-        school_medium=request.POST.get('schoolMedium')
-        if(school_medium=='Medium'):
-            school_medium=''
-        school_comments=request.POST.get('schoolComments')
-        concerns_first_noticed_in=request.POST.get('concerns-first-noticed-in')
+        prepri_schoolName=request.POST.get('prepri_schoolName')
+        prepri_schoolBoard=request.POST.get('prepri_schoolBoard')
+        prepri_schoolMedium=request.POST.get('prepri_schoolMedium')
+        prepri_schoolComments=request.POST.get('prepri_schoolComments')
+        
+        pri_schoolName=request.POST.get('pri_schoolName')
+        pri_schoolBoard=request.POST.get('pri_schoolBoard')
+        pri_schoolMedium=request.POST.get('pri_schoolMedium')
+        pri_schoolComments=request.POST.get('pri_schoolComments')
+        
+        sec_schoolName=request.POST.get('sec_schoolName')
+        sec_schoolBoard=request.POST.get('sec_schoolBoard')
+        sec_schoolMedium=request.POST.get('sec_schoolMedium')
+        sec_schoolComments=request.POST.get('sec_schoolComments')
+        
+        prensent_schoolName=request.POST.get('prensent_schoolName')
+        prensent_schoolBoard=request.POST.get('prensent_schoolBoard')
+        prensent_schoolMedium=request.POST.get('prensent_schoolMedium')
+        prensent_schoolComments=request.POST.get('prensent_schoolComments')
+    
         attendance=request.POST.get('attendance')
         if(attendance==None):
             attendance=''
@@ -217,11 +226,11 @@ def saveForm(request):
         if(head_circumference==''):
             head_circumference=0
         skull_shape=request.POST.get('skull-shape-details')
-        general_neurology=request.POST.getlist('general_neurology')
-        general_neurology_details=request.POST.get('general_neurology_details')
+        
+        examination_neurology_details=request.POST.get('examination_neurology_details')
         skin_exam=request.POST.get('skin-exam-text')
         joints=request.POST.get('joints-text')
-        neurology=request.POST.getlist('neurology')
+        examination_neurology=request.POST.getlist('examination_neurology')
         neurology_details=request.POST.get('neurology_details')
         hypertrophy_of_muscles=request.POST.get('hypertrophy-of-muscles')
         abnormal_tone_pattern=request.POST.get('muscle_tone_neurology')
@@ -232,29 +241,42 @@ def saveForm(request):
         deep_tendon_reflexes=request.POST.get('deep-tendon-reflexes')
         deep_tendon_reflexes_details=request.POST.get('deep-tendon-reflexes-details')
         coordination=request.POST.get('coordination')
-        if(coordination==None):
-            coordination=''
+        ankle_dorsiflexion_left=request.POST.get('ankle_dorsiflexion_left')
+        ankle_dorsiflexion_right=request.POST.get('ankle_dorsiflexion_right')
+        
         coordination_details=request.POST.get('coordination_details')
+        adductor_angle_left=request.POST.get('adductor_angle_left')
+        adductor_angle_right=request.POST.get('adductor_angle_right')
+        popliteal_angle=request.POST.get('popliteal_angle')
         abnormal_movements=request.POST.get('abnormal_movements')
         if(abnormal_movements==None):
             abnormal_movements=''
         abnormal_movements_details=request.POST.get('abnormal_movements_details')
         motor_deficit=request.POST.get('motor_deficit')
         gait=request.POST.get('Gait')
-        if(gait==None):
-            gait=''
-        balance=request.POST.get('balance')
-        if(balance==None):
-            balance=''        
+        if(gait=='abnormal'):
+            gait=request.POST.get('gait_options')
+        balance=request.POST.get('balance') 
+        
+        LUL=request.POST.get('LUL')
+        LLL=request.POST.get('LLL')
+        RUL=request.POST.get('RUL')
+        RLL=request.POST.get('RLL')
+        
+        fnf_test=request.POST.get('fnf_test')
+        dysdidocokinesia=request.POST.get('dysdidocokinesia')
         #Evaluation
         visual_deficit=request.POST.getlist('visual_deficit')
+        visual_deficits_dets=request.POST.get('visual_deficits_dets')
         hearing_deficit=request.POST.getlist('hearing_deficit')
+        hearing_deficits_dets=request.POST.get('hearing_deficits_dets')
         eye_contact=request.POST.get('eye_contact')
         if(eye_contact==None):
             eye_contact=''
         motor_imitation_skills=request.POST.get('motor_imitation_skills')
         pointing_behaviors=request.POST.get('pointing_behaviors')
         stereotypic_behaviors=request.POST.get('stereotypic_behaviors')
+        motor_dets=request.POST.get('motor_dets')
         sensory_defensive_behaviors=request.POST.get('sensory_defensive_behaviors')
         speech=request.POST.get('speech')
         evaluationMChat=request.POST.get('evaluationMChat')
@@ -274,20 +296,37 @@ def saveForm(request):
         cognitive_disability=request.POST.get('cognitive_disability')
         if(cognitive_disability==None):
             cognitive_disability=''
-        mental_retardation=request.POST.get('mental_retardation')
+        
         developement_impression=request.POST.getlist('developement_impression')
         learning_impression=request.POST.getlist('learning_impression')
         behavior_impression=request.POST.getlist('behavior_impression')
+        learning_difference=request.POST.get('learning_difference')
+        Impression_Details=request.POST.get('Impression_Details')
         
         #plan
-        neurology_evaluation=request.POST.getlist('neurology_evaluation')
-        developement_evaluation=request.POST.getlist('developement_evaluation')
+        investigations=request.POST.getlist('investigations')
+        investigations_details=request.POST.get('investigations_detail')
+        plan_reference=request.POST.get('plan_reference')
+        iq_evaluation=request.POST.getlist('iq_evaluation')
+        speech_lang_evaluation=request.POST.getlist('speech_lang_evaluation')
+        dq_evaluation=request.POST.getlist('dq_evaluation')
+        sq_evaluation=request.POST.getlist('sq_evaluation')
+        academic_achievements=request.POST.getlist('academic_achievements')
         learning_evaluation_plan=request.POST.getlist('learning_evaluation_plan')
         special_education_intervention=request.POST.getlist('special_education_intervention')
         remedial_intervention=request.POST.getlist('remedial_intervention')
         behavioral_modification=request.POST.getlist('behavioral_modification')
         academic_suggestions=request.POST.getlist('academic_suggestions')
+        academic_suggestions_dets=request.POST.get('academic_suggestions_dets')
         followUpPlan=request.POST.get('followUpPlan')
+        
+        
+        #intervention
+        developemental_intervention=request.POST.get('developemental_intervention')
+        remedial_intervention_details=request.POST.get('remedial_intervention_details')
+        behavior_intervention=request.POST.get('behavior_intervention')
+        eclectic_program=request.POST.get('eclectic_program')
+        developemental_therapy=request.POST.get('developemental_therapy')
         
         #medical treatment
         medical_treatment_plan=request.POST.getlist('medical_treatment_plan')
@@ -310,8 +349,7 @@ def saveForm(request):
         learning_behavior=" , ".join(learning_behavior)
         behavior=" , ".join(behavior)
         present_school_concerns=" , ".join(present_school_concerns)
-        general_neurology=" , ".join(general_neurology)
-        neurology=" , ".join(neurology)
+        examination_neurology=" , ".join(examination_neurology)
         muscle_neurology=" , ".join(muscle_neurology)
         visual_deficit=" , ".join(visual_deficit)
         hearing_deficit=" , ".join(hearing_deficit)
@@ -328,13 +366,18 @@ def saveForm(request):
         learning_impression=" , ".join(learning_impression)
         behavior_impression=" , ".join(behavior_impression)
         
-        neurology_evaluation=" , ".join(neurology_evaluation)
-        developement_evaluation=" , ".join(developement_evaluation)
+        investigations=" , ".join(investigations)
+        iq_evaluation=" , ".join(iq_evaluation)
+        dq_evaluation=" , ".join(dq_evaluation)
+        sq_evaluation=" , ".join(sq_evaluation)
+        academic_achievements=" , ".join(academic_achievements)
+        speech_lang_evaluation=" , ".join(speech_lang_evaluation)
         learning_evaluation_plan=" , ".join(learning_evaluation_plan)
         special_education_intervention=" , ".join(special_education_intervention)
         remedial_intervention=" , ".join(remedial_intervention)
         behavioral_modification=" , ".join(behavioral_modification)
         academic_suggestions=" , ".join(academic_suggestions)
+        
         medical_treatment_plan=" , ".join(medical_treatment_plan)
         
         autData=AutisticData(firstName=name,address=address,gender=gender,reffered_By=refferedby,referred_By_phone_no=referredBy_phone,birth_Date=birthDate,birth_Weight=birthWeight,term=term,preterm_weeks=preterm_weeks,delivery=delivery,delivery_Details=deliveryDetails,consanguinity=consanguinity,perninantal_Events=perninantalEvents,perninantal_Events_Details=perninantalEventsDetails,treatment=treatment,required_NICU_stay=requiredNICUstayDets,
@@ -343,23 +386,39 @@ def saveForm(request):
                              single_words=single_words,full_sentences=full_sentences,response_to_calling_names=response_to_calling_names,response_to_instructions=response_to_instructions,reapeats_spoken_words=reapeats_spoken_words,communication_loops=communication_loops,speech_devlopement_details=speechDevDetails,
                              clinical_history_significance=clinical_history_significance,ho_surgery=ho_surgery,ho_hospitalization=ho_hospitalization,ho_previous_treatment=ho_previous_treatment,Past_History_Details=PastHistoryDetails,
                              personal_developement=personal_developement,learning_behavior=learning_behavior,behavior=behavior,tv_view_hrs=tv_view_hrs,Unhealthy_Dietry_Habits=UnhealthyDietryHabits,Unhealthy_Sleep_Habits=UnhealthySleepHabits,parenting_style=parenting_style,Behavioral_And_Personal_Details=BehavioralAndPersonalDetails,
-                             present_school_name=present_school_name,school_board=school_board,school_medium=school_medium,school_comments=school_comments,concerns_first_noticed_in=concerns_first_noticed_in,attendance=attendance,liked_subjects=liked_subjects,unliked_subjects=unliked_subjects,present_school_concerns=present_school_concerns,
-                             weight=weight,height=height,head_circumference=head_circumference,skull_shape=skull_shape,general_neurology=general_neurology,general_neurology_details=general_neurology_details,
-                             skin_exam=skin_exam,joints=joints,neurology=neurology,neurology_details=neurology_details,hypertrophy_of_muscles=hypertrophy_of_muscles,abnormal_tone_pattern=abnormal_tone_pattern,muscle_tone_neurology=muscle_tone_neurology,muscle_neurology=muscle_neurology,muscle_neurology_details=muscle_neurology_details,muscle_power_details=muscle_power_details,
-                             deep_tendon_reflexes=deep_tendon_reflexes,deep_tendon_reflexes_details=deep_tendon_reflexes_details,coordination=coordination,coordination_details=coordination_details,
-                             abnormal_movements=abnormal_movements,abnormal_movements_details=abnormal_movements_details,motor_deficit=motor_deficit,gait=gait,balance=balance,visual_deficit=visual_deficit,
-                             hearing_deficit=hearing_deficit,eye_contact=eye_contact,motor_imitation_skills=motor_imitation_skills,pointing_behaviors=pointing_behaviors,stereotypic_behaviors=stereotypic_behaviors,sensory_defensive_behaviors=sensory_defensive_behaviors,speech=speech,evaluationMChat=evaluationMChat,development_screening=development_screening,gross_motor=gross_motor,speech_screening=speech_screening,fine_motor=fine_motor,
-                             social_emotion=social_emotion,learning_evaluation=learning_evaluation,behavior_evaluation=behavior_evaluation,neurology_impression=neurology_impression,cerebral_palsy=cerebral_palsy,cognitive_disability=cognitive_disability,mental_retardation=mental_retardation,developement_impression=developement_impression,
-                             learning_impression=learning_impression,behavior_impression=behavior_impression,neurology_evaluation=neurology_evaluation,
-                             developement_evaluation=developement_evaluation,learning_evaluation_plan=learning_evaluation_plan,special_education_intervention=special_education_intervention,remedial_intervention=remedial_intervention,
-                             behavioral_modification=behavioral_modification,academic_suggestions=academic_suggestions,follow_Up_Plan=followUpPlan,medical_treatment_plan=medical_treatment_plan)
+                             pre_primary_school_Name=prepri_schoolName,pre_primary_school_Board=prepri_schoolBoard,pre_primary_school_Medium=prepri_schoolMedium,pre_primary_school_Comments=prepri_schoolComments,primary_school_Name=pri_schoolName,primary_school_Board=pri_schoolBoard,primary_school_Medium=pri_schoolMedium,primary_school_Comments=pri_schoolComments,secondary_school_Name=sec_schoolName,secondary_school_Board=sec_schoolBoard,secondary_school_Medium=sec_schoolMedium,secondary_school_Comments=sec_schoolComments,prensent_school_Name=prensent_schoolName,prensent_school_Board=prensent_schoolBoard,prensent_school_Medium=prensent_schoolMedium,prensent_school_Comments=prensent_schoolComments,attendance=attendance,liked_subjects=liked_subjects,unliked_subjects=unliked_subjects,present_school_concerns=present_school_concerns,
+                             weight=weight,height=height,head_circumference=head_circumference,skull_shape=skull_shape,examination_neurology_details=examination_neurology_details,
+                             skin_exam=skin_exam,joints=joints,examination_neurology=examination_neurology,neurology_details=neurology_details,hypertrophy_of_muscles=hypertrophy_of_muscles,abnormal_tone_pattern=abnormal_tone_pattern,muscle_tone_neurology=muscle_tone_neurology,muscle_neurology=muscle_neurology,muscle_neurology_details=muscle_neurology_details,muscle_power_details=muscle_power_details,
+                             deep_tendon_reflexes=deep_tendon_reflexes,deep_tendon_reflexes_details=deep_tendon_reflexes_details,coordination=coordination,coordination_details=coordination_details,ankle_dorsiflexion_left=ankle_dorsiflexion_left,ankle_dorsiflexion_right=ankle_dorsiflexion_right,adductor_angle_left=adductor_angle_left,adductor_angle_right=adductor_angle_right,
+                             popliteal_angle=popliteal_angle,LUL=LUL,LLL=LLL,RUL=RUL,RLL=RLL,fnf_test=fnf_test,dysdidocokinesia=dysdidocokinesia,
+                             abnormal_movements=abnormal_movements,abnormal_movements_details=abnormal_movements_details,motor_deficit=motor_deficit,gait=gait,balance=balance,
+                             visual_deficit=visual_deficit,visual_deficits_details=visual_deficits_dets,hearing_deficit=hearing_deficit,hearing_deficits_details=hearing_deficits_dets,eye_contact=eye_contact,motor_imitation_skills=motor_imitation_skills,pointing_behaviors=pointing_behaviors,stereotypic_behaviors=stereotypic_behaviors,motor_details=motor_dets,sensory_defensive_behaviors=sensory_defensive_behaviors,speech=speech,evaluationMChat=evaluationMChat,development_screening=development_screening,gross_motor=gross_motor,speech_screening=speech_screening,fine_motor=fine_motor,
+                             social_emotion=social_emotion,learning_evaluation=learning_evaluation,behavior_evaluation=behavior_evaluation,neurology_impression=neurology_impression,cerebral_palsy=cerebral_palsy,cognitive_disability=cognitive_disability,developement_impression=developement_impression,
+                             learning_impression=learning_impression,behavior_impression=behavior_impression,learning_difference=learning_difference,Impression_Details=Impression_Details,investigations=investigations,investigations_details=investigations_details, plan_reference=plan_reference,
+                             iq_evaluation=iq_evaluation,speech_lang_evaluation=speech_lang_evaluation,dq_evaluation=dq_evaluation,sq_evaluation=sq_evaluation,academic_achievements=academic_achievements,learning_evaluation_plan=learning_evaluation_plan,special_education_intervention=special_education_intervention,remedial_intervention=remedial_intervention,
+                             behavioral_modification=behavioral_modification,academic_suggestions=academic_suggestions,academic_suggestions_details=academic_suggestions_dets,follow_Up_Plan=followUpPlan,developemental_intervention=developemental_intervention,remedial_intervention_details=remedial_intervention_details,behavior_intervention=behavior_intervention,eclectic_program=eclectic_program,developemental_therapy=developemental_therapy,medical_treatment_plan=medical_treatment_plan)
         # autData=AutisticData()
         autData.save()
         
         p_k=autData.case_no
          
         # # Now, let's add data to our worksheet
-        colNames=["Case No" , "Name" , "Address" , "Gender" , "Reffered By" , "Phone no" , "Birth Date" , "Birth Weight" , "Term" , "Term Weeks" , "Delivery" , "Delivery Details" , "Consanguinity" , "Perninantal Events" , "Perninantal Events Details" , "Treatment" , "Required NICU stay" , "Neurological Concerns" , "Developement Concerns" , "Delayed Motor Developement" , "Delayed Sensory Developement" , "Delayed Speech Developement" , "Learning Concerns" , "Behavioral Concerns" , "Motor Developement" , "Social Smile" , "Neck Holding" , "Roll Over" , "Sitting Up" , "Standing" , "Climbing Staircase" , "Walking" , "Speech Developement" , "Single Words" , "Full Sentences At" , "Resopnse to calling names" , "Response to instructions" , "Repeats spoken words" , "Communication Loops" , "Motor Developement Details" , "Speech Developement Details" , "Clinical History Significance" , "H/O surgery" , "H/O Hospitalization" , "H/O previous treatment" , "Past History Details" , "Personal Developement" , "Learning Behavior" , "Behavior" , "Parenting Style" , "Behavioral and Personal Details" , "Present School Name" , "School Board" , "School Medium" , "School Comments" , "Concerns first noticed in" , "Attendance" , "Liked Subjects" , "Unliked Subjects" , "Present School Concers" , "TV viewing hours" , "Unhealthy Dietry Habits" , "Unhealthy Sleep Habits" , "Weight" , "Height" , "Head circumference" , "Skull Shape" , "General Neurology" , "General Neurology Details" , "Skin Exam" , "Joints" , "Neurology" , "Neurology Details" , "Hypertrophy Of Muscles" , "Abnormal Tone Pattern" , "Muscle tone neurology" , "Muscle Neurology" , "Muscle Neurology Details" , "Muscle power Details" , "Deep Tendon Reflexes" , "Deep tendon reflexes details" , "Coordination" , "Coordination Details" , "Abnormal Movements" , "Abnormal Movements Details" , "Motor Deficit" , "Gait" , "Balance" , "Visual Deficit" , "Hearing Deficit" , "Eye Contact" , "Motor Imitation Skills" , "Pointing Behaviors" , "Stereotypic Behaviors" , "Sensory Defensive Behaviors" , "Speech" , "Evaluation on MChat" , "Developement Screening" , "Gross Motor" , "Speech Screening" , "Fine motor" , "Social Emotion" , "Learing Evaluation" , "Behavior Evaluation" , "Neurology Impression" , "Cerebral Palsy" , "Cognitive Disability" , "Mental Retardation" , "Developemental Impression" , "Learning Impression" , "Behavior Impression" , "Neurology Evaluation" , "Developement Evaluation" , "Learning Evaluation Plan" , "Special Education Intervention" , "Remedial Intervention" , "Behavioral Modification" , "Academic Suggestions" , "Follow Up Plan" , "Medical Treatment Plan"]
+        colNames=["Case No" , "Name" , "Address" , "Gender" , "Reffered By" , "Phone no" , "Birth Date" , "Birth Weight" , "Term" , "Term Weeks" , "Delivery" , "Delivery Details" , "Consanguinity" , "Perninantal Events" ,
+                  "Perninantal Events Details" , "Treatment" , "Required NICU stay" , "Neurological Concerns" , "Developement Concerns" , "Delayed Motor Developement" , "Delayed Sensory Developement" , "Delayed Speech Developement" ,
+                  "Learning Concerns" , "Behavioral Concerns" , "Motor Developement" , "Social Smile" , "Neck Holding" , "Roll Over" , "Sitting Up" , "Standing" , "Climbing Staircase" , "Walking" , "Speech Developement" , "Single Words" ,
+                  "Full Sentences At" , "Resopnse to calling names" , "Response to instructions" , "Repeats spoken words" , "Communication Loops" ,
+                  "Motor Developement Details" , "Speech Developement Details" , "Clinical History Significance" , "H/O surgery" , "H/O Hospitalization" , "H/O previous treatment" , "Past History Details" , "Personal Developement" ,
+                  "Learning Behavior" , "Behavior" , "Parenting Style" , "Behavioral and Personal Details" ,
+                  "Pre-primary School Name" , "Pre-primary School Board" , "Pre-primary School Medium" , "Pre-primary School Comments","Primary School Name" , "Primary School Board" , "Primary School Medium" , "Primary School Comments","Secondary School Name" , "Secondary School Board" , "Secondary School Medium" , "Secondary School Comments" , "Present School Name" , "Present School Board" , "Present School Medium" , "Present School Comments" ,
+                   "Attendance" , "Liked Subjects" , "Unliked Subjects" , "Present School Concers" , "TV viewing hours" , "Unhealthy Dietry Habits" , "Unhealthy Sleep Habits" , "Weight" , "Height" , "Head circumference" , "Skull Shape" , "Examination Neurology" , "Examination Neurology Details" ,
+                   "Skin Exam" , "Joints" , "Neurology" , "Neurology Details" , "Hypertrophy Of Muscles" , "Abnormal Tone Pattern" , "Muscle tone neurology" , "Muscle Neurology" , "Muscle Neurology Details" ,
+                   "Muscle power Details" , "Deep Tendon Reflexes" , "Deep tendon reflexes details" , "Coordination" , "Coordination Details","Ankle Dorsiflexion Left","Ankle Dorsiflexion Right","Adductor Angle Left","Adductor Angle Right" , "Abnormal Movements" , "Abnormal Movements Details" ,"Popliteal Angle", "Motor Deficit" , "Gait" ,
+                   "Left Upper Limb","Left Lower Limb","Right Upper Limb","Right Lower Limb","FNF test","Dysdidocokinesia",
+                   "Balance" , "Visual Deficit","Visual Deficit Details" , "Hearing Deficit" , "Hearing Deficit Details","Eye Contact" , "Motor Imitation Skills" , "Pointing Behaviors" , "Stereotypic Behaviors","Motor Details" , "Sensory Defensive Behaviors" , "Speech" , "Evaluation on MChat" ,
+                   "Developement Screening" , "Gross Motor" , "Speech Screening" , "Fine motor" , "Social Emotional" , "Learing Evaluation" , "Behavior Evaluation" , "Neurology Impression" , "Cerebral Palsy" , "Cognitive Disability" ,
+                   "Developemental Impression" , "Learning Impression" , "Behavior Impression" ,"Learning Difference" , "Impression Details" , "Investigations" , "Investigations Details", "Plan Reference"
+                   "IQ Evaluation", "Speech and language evaluation", "DQ evaluation", "SQ evaluation", "Academic Achievements" , "Learning Evaluation Plan" , "Special Education Intervention" , "Remedial Intervention" ,
+                   "Behavioral Modification" , "Academic Suggestions", "Academic Suggestions Details" , "Follow Up Plan", "Developemental intervention","Remedial intervention Details","Behavior Intervention", "Eclectic program","Developemental therapy" , "Medical Treatment Plan"]
   
         # # # Creating the first column
         # char='A'
@@ -379,16 +438,16 @@ def saveForm(request):
         df=worksht.get_all_records()
 
         
-        colValues=[name,address,gender,refferedby,referredBy_phone,birthDate,birthWeight,term,preterm_weeks,delivery,consanguinity,perninantalEvents,treatment,requiredNICUstay,neurological_concerns,developemental_concerns,delayed_motor_developement,delayed_sensory_dev,delayed_speech_developement,learning_concerns,behavioral_concerns,
-                   motor_development,social_smile,neck_holding,roll_over,sitting_up,standing,walking,climbing_staircase,motorDevDetails,speech_developement,single_words,full_sentences,response_to_calling_names,response_to_instructions,reapeats_spoken_words,communication_loops,speechDevDetails,
-                   clinical_history_significance,ho_surgery,ho_hospitalization,ho_previous_treatment,PastHistoryDetails,
-                   personal_developement,learning_behavior,tv_view_hrs,UnhealthyDietryHabits,UnhealthySleepHabits,parenting_style,BehavioralAndPersonalDetails,
-                   present_school_name,school_board,school_medium,school_comments,concerns_first_noticed_in,attendance,liked_subjects,unliked_subjects,present_school_concerns,
-                   weight,height,head_circumference,skull_shape,general_neurology,general_neurology_details,skin_exam,joints,neurology,neurology_details,hypertrophy_of_muscles,abnormal_tone_pattern,muscle_tone_neurology,muscle_neurology,muscle_neurology_details,muscle_power_details,deep_tendon_reflexes,deep_tendon_reflexes_details,coordination,coordination_details,abnormal_movements,abnormal_movements_details,motor_deficit,gait,balance,
-                   visual_deficit,hearing_deficit,eye_contact,motor_imitation_skills,pointing_behaviors,stereotypic_behaviors,sensory_defensive_behaviors,speech,evaluationMChat,development_screening,gross_motor,speech_screening,fine_motor,social_emotion,learning_evaluation,behavior_evaluation,
-                   neurology_impression,cerebral_palsy,cognitive_disability,mental_retardation,developement_impression,learning_impression,behavior_impression,
-                   neurology_evaluation,developement_evaluation,learning_evaluation_plan,special_education_intervention,remedial_intervention,behavioral_modification,academic_suggestions,followUpPlan,
-                   medical_treatment_plan]
+        # colValues=[name,address,gender,refferedby,referredBy_phone,birthDate,birthWeight,term,preterm_weeks,delivery,consanguinity,perninantalEvents,treatment,requiredNICUstay,neurological_concerns,developemental_concerns,delayed_motor_developement,delayed_sensory_dev,delayed_speech_developement,learning_concerns,behavioral_concerns,
+        #            motor_development,social_smile,neck_holding,roll_over,sitting_up,standing,walking,climbing_staircase,motorDevDetails,speech_developement,single_words,full_sentences,response_to_calling_names,response_to_instructions,reapeats_spoken_words,communication_loops,speechDevDetails,
+        #            clinical_history_significance,ho_surgery,ho_hospitalization,ho_previous_treatment,PastHistoryDetails,
+        #            personal_developement,learning_behavior,tv_view_hrs,UnhealthyDietryHabits,UnhealthySleepHabits,parenting_style,BehavioralAndPersonalDetails,
+        #            present_school_name,school_board,school_medium,school_comments,concerns_first_noticed_in,attendance,liked_subjects,unliked_subjects,present_school_concerns,
+        #            weight,height,head_circumference,skull_shape,general_neurology,general_neurology_details,skin_exam,joints,neurology,neurology_details,hypertrophy_of_muscles,abnormal_tone_pattern,muscle_tone_neurology,muscle_neurology,muscle_neurology_details,muscle_power_details,deep_tendon_reflexes,deep_tendon_reflexes_details,coordination,coordination_details,abnormal_movements,abnormal_movements_details,motor_deficit,gait,balance,
+        #            visual_deficit,hearing_deficit,eye_contact,motor_imitation_skills,pointing_behaviors,stereotypic_behaviors,sensory_defensive_behaviors,speech,evaluationMChat,development_screening,gross_motor,speech_screening,fine_motor,social_emotion,learning_evaluation,behavior_evaluation,
+        #            neurology_impression,cerebral_palsy,cognitive_disability,mental_retardation,developement_impression,learning_impression,behavior_impression,
+        #            neurology_evaluation,developement_evaluation,learning_evaluation_plan,special_education_intervention,remedial_intervention,behavioral_modification,academic_suggestions,followUpPlan,
+        #            medical_treatment_plan]
         
         
         json_serialized = sr.serialize("json", [AutisticData.objects.get(pk=p_k)])
@@ -446,7 +505,6 @@ def saveForm(request):
         
    
     data=json.loads(json_serialized)
-    print(arr)
     
     data=data[0]["fields"]
     temp={"case_no":'{pk}'.format(pk=p_k)}
@@ -467,10 +525,6 @@ def saveForm(request):
 def formSubmitted(request):
     return render(request,'../templates/afterSubmit.html');
 
-register = template.Library()
-@register.filter
-def remove_substr(string, char):
-    return string.replace(char, '')
 
 def fill_gsheet(colValues,row_count):
     # progress_recorder= ProgressRecorder(self)

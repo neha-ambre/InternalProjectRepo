@@ -12,12 +12,4 @@ urlpatterns = [
     path('login/saveForm/',views.saveForm,name='saveForm'),
     path('saveUser/',views.saveUser,name='saveUser'),
     path('getUser/',views.getUser,name='getUser'),
-    # path('saveForm/formSubmitted/',views.formSubmitted,name='formSubmitted'),
-    # path('saveForm/formSubmitted',views.formSubmitted,name='formSubmitted'),
-    # path('/saveForm/formSubmitted/',views.formSubmitted,name='formSubmitted'),
-    # # path('/saveForm/',apiViews.formSubmitted,name='saveFormSubmitted'),
-    # path('formSubmitted/',views.formSubmitted,name='formSubmitted'),
-    # path('formSubmitted',views.formSubmitted,name='formSubmitted'),
-    # path('/formSubmitted/',views.formSubmitted,name='formSubmitted'),
-    
 ]
