@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d*c!dwvqi=hp732cphk1zwh@u0fk3+g!k17s2tmajcdbbj1mq='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['https://internal-project-2022.herokuapp.com']
+ALLOWED_HOSTS = ['internship-internal-project.herokuapp.com/','internal-project-2022.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -60,6 +60,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
