@@ -1,0 +1,1 @@
+web: gunicorn iternal_project.wsgi:application --log-file 
