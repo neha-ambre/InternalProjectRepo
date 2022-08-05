@@ -18,6 +18,10 @@ from django.urls import path,include,re_path
 from iternal_project import views
 from members import views as memViews
 from api import views as apiViews
+from django.views.static import serve 
+from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 
 admin.site.site_header = "Name of the Admin"
 admin.site.index_title = "Welcome "
@@ -49,5 +53,9 @@ urlpatterns = [
     path('logout/',memViews.logout_user,name='login'), 
     path('members/',include('members.urls')),
     path('members/',include('django.contrib.auth.urls')),
-    path('excel/',apiViews.ExportImportExcel.as_view())
+    path('excel/',apiViews.ExportImportExcel.as_view()),
+    url(r'^media/(?P<path>.*)$',serve, {'document_root':settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$',serve, {'document_root':settings.STATIC_ROOT}),
 ]
+
+urlpatterns=urlpatterns+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

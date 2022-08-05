@@ -1,0 +1,9 @@
+/internalProjectVenv
+.internalProjectVenv 
+ internalProjectVenv/ 
+ # Django stuff: 
+ __pycache__/ 
+ *.log 
+ *.pot 
+ *.pyc 
+ local_settings.py 
