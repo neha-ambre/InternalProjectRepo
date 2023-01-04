@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'gsheets',
     "django_tables2",
+    'whitenoise.runserver_nostatic'
 ]
 
 
